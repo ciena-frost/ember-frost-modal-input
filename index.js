@@ -1,6 +1,11 @@
-/* jshint node: true */
-'use strict';
+/* globals module */
+
+'use strict'
 
 module.exports = {
-  name: 'ember-frost-modal-input'
-};
+  name: 'ember-frost-modal-input',
+
+  included: function (app) {
+    this._super.included(app)
+  }
+}
