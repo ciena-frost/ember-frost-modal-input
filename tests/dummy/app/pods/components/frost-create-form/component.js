@@ -4,7 +4,7 @@ import layout from './template'
 export default Ember.Component.extend({
   layout,
   modalForms: Ember.inject.service('modal-forms'),
-  bunsenModel: {
+  userModel: {
     'type': 'object',
     'properties': {
       'username': {
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
     ]
   },
 
-  bunsenView: {},
+  userView: {},
 
   willInsertElement () {
     this.get('modalForms').setModalActive(true)

@@ -1,12 +1,11 @@
 export default function () {
   this.transition(
     this.inHelper('liquid-modal'),
-    this.toModal(/(?:edit-|create-)/),
+    this.toModal(/(?:-edit|-create)/),
     this.use('explode', {
       pick: '.lf-overlay',
       use: ['cross-fade', {
-        maxOpacity: 0.1,
-        duration: 200
+        maxOpacity: 0.5
       }]
     }, {
       pick: '.lm-container',
@@ -16,13 +15,10 @@ export default function () {
 
   this.transition(
     this.inHelper('liquid-modal'),
-    this.fromModal(/(?:edit-|create-)/),
+    this.fromModal(/(?:-edit|-create)/),
     this.use('explode', {
       pick: '.lf-overlay',
-      use: ['cross-fade', {
-        maxOpacity: 0.1,
-        duration: 200
-      }]
+      use: ['cross-fade']
     }, {
       pick: '.lm-container',
       use: ['toUp']
