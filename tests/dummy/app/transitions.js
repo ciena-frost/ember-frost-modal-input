@@ -1,3 +1,5 @@
-// import { animate, Promise } from "liquid-fire";
+import inputModalTransitions from 'ember-frost-modal-input/transitions'
 
-export default function () {}
+export default function () {
+  inputModalTransitions.apply(this, arguments)
+}

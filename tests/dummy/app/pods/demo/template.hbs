@@ -1,2 +1,5 @@
-frost-modal-input testbed
-{{frost-modal-input}}
+  frost-modal-input testbed<br>
+{{#frost-button class='secondary medium' on-click=(action 'showForm')}}
+  <div class='text'>Open form</div>
+{{/frost-button}}
+{{liquid-modal class=(if isModalActive 'form-container' '')}}

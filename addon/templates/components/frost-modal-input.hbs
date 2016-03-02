@@ -1,2 +1,11 @@
-ember-frost-modal-input component
+{{#if titleComponent}}
+  {{component titleComponent}}
+{{else}}
+  <div class="header">
+    <div class="primary-title">{{title}}</div>
+    {{#if subtitle}}
+      <div class="sub-title">{{subtitle}}</div>
+    {{/if}}
+  </div>
+{{/if}}
 {{yield}}
