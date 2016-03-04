@@ -22,10 +22,50 @@ ember install ember-frost-modal-input
 ```
 
 ## API
-Coming soon
+| Attribute | Type | Value | Description |
+| --------- | ---- | ----- | ----------- |
+| `title` | `string` | | Optional custom title |
+| `subtitle` | `string` | |  Optional custom subtitle |
+| `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 
 ## Examples
-Coming soon
+### Controller
+Inject the modal-forms service into the parent controller
+```js
+modalForms: Ember.inject.service('modal-forms'),
+isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
+```
+
+Change the active state of the modal in your component
+```js
+willInsertElement () {
+  this.get('modalForms').setModalActive(true)
+},
+
+willDestroyElement () {
+  this.get('modalForms').setModalActive(false)
+}
+```
+
+### Template
+Custom classes are applied to the parent template, based on state of the modal
+```handlebars
+{{liquid-modal class=(if isModalActive 'form-container' '')}}
+```
+
+#### Default title component template
+```handlebars
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+    // Custom modal content
+{{/frost-modal-input}}
+```
+
+#### Custom title component template
+```handlebars
+{{#frost-modal-input titleComponent='myTitleComponent'}}
+  // Custom modal content
+{{/frost-modal-input}}
+```
 
 ## Development
 ### Setup
