@@ -12,6 +12,7 @@
 # ember-frost-modal-input
 
 ## Installation
+
 ```
 ember install ember-frost-modal-input
 ```
