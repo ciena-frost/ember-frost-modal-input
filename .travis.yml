@@ -1,10 +1,36 @@
 language: node_js
-sudo: false
 node_js:
-- '5.3'
+- '5.0'
+- 'stable'
+sudo: false
 branches:
   except:
-  - /^v[0-9\.]+/
+  - "/^v[0-9\\.]+/"
+cache:
+  directories:
+  - bower_components
+  - node_modules
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+env:
+  matrix:
+  - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-1-13
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
+  global:
+    - CXX=g++-4.8
+    - secure: a5ZJCLsRoVln7nMdI6BifpwRFXMN97juzUgbyDUhrxNs0PwfzePuHEP1ybZxrW2Crw5PN+46Ke3eHyfogOAN8TY7m99wyKMFKS01gupTb+0GnYW8JNT2w6g0jSCRJylskS6VkvCmskDJwQ1gFai91+EOacQiAB2PpLk6In4K6T1EevV4SDM5O2BNOLFnV6H+phWkK+P1SeBs7a9x55ynIfSsaHWIlKj8sZAAT1bhPIMZOGrpwnYu2j0d4+FWukZlPboLuBz9xiGDFvAe8Su9+o7qfyEorhx/OlJ5sarCe/SGqfvutzCyJYAQbE4uGjM92IbYFcpNYTARgrHBZUsElW3+mwgq2jsUz+L+C/w1kVYOaGcBDn6459im4xcbPKcnLPAoWCDsTo3AZrdQRU7zJV60+soddnEsPsgiwzKtbUoCqUx8W+gA03oWaoP/emCKK21tCYo8zmcbWTxM4+x1+39hICvG5dkgArpJ1mk2LOKt740SvBkMB3sX2WWdK4V1VSfCsrqC2upZuWK8OqFif8NUEqEP7LwH+LQDUsm7Ik+C6z33ZQNpU7FhUnB83slvTQpFXJaM7u3NqVvq1vClgJktWGQriBG9Xzga0ZSx/TFvvcghQ43IlCA9wmSMEdceGmrmGuDevWGgDosvuLzrbFjDIMAVNKX4jTv0vOZv8bg=
+matrix:
+  fast_finish: true
+  allow_failures:
+  - env: EMBER_TRY_SCENARIO=ember-1-13
+  - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
 - npm install -g coveralls pr-bumper
 - pr-bumper check
@@ -15,21 +41,13 @@ before_script:
 install:
 - npm install
 - bower install
+script:
+- npm run lint
+- ember try:one $EMBER_TRY_SCENARIO --- ember test
 after_success:
 - sed -i -- 's/SF:ember-frost-modal-input\/\(.*\)/SF:addon\/\1.js/' coverage/lcov.info
   && rm -f coverage/lcov.info--
 - cat coverage/lcov.info | coveralls
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
-env:
-  matrix:
-  - CXX=g++-4.8
-  global:
-    secure: a5ZJCLsRoVln7nMdI6BifpwRFXMN97juzUgbyDUhrxNs0PwfzePuHEP1ybZxrW2Crw5PN+46Ke3eHyfogOAN8TY7m99wyKMFKS01gupTb+0GnYW8JNT2w6g0jSCRJylskS6VkvCmskDJwQ1gFai91+EOacQiAB2PpLk6In4K6T1EevV4SDM5O2BNOLFnV6H+phWkK+P1SeBs7a9x55ynIfSsaHWIlKj8sZAAT1bhPIMZOGrpwnYu2j0d4+FWukZlPboLuBz9xiGDFvAe8Su9+o7qfyEorhx/OlJ5sarCe/SGqfvutzCyJYAQbE4uGjM92IbYFcpNYTARgrHBZUsElW3+mwgq2jsUz+L+C/w1kVYOaGcBDn6459im4xcbPKcnLPAoWCDsTo3AZrdQRU7zJV60+soddnEsPsgiwzKtbUoCqUx8W+gA03oWaoP/emCKK21tCYo8zmcbWTxM4+x1+39hICvG5dkgArpJ1mk2LOKt740SvBkMB3sX2WWdK4V1VSfCsrqC2upZuWK8OqFif8NUEqEP7LwH+LQDUsm7Ik+C6z33ZQNpU7FhUnB83slvTQpFXJaM7u3NqVvq1vClgJktWGQriBG9Xzga0ZSx/TFvvcghQ43IlCA9wmSMEdceGmrmGuDevWGgDosvuLzrbFjDIMAVNKX4jTv0vOZv8bg=
 before_deploy:
 - pr-bumper bump
 deploy:
@@ -40,6 +58,8 @@ deploy:
     secure: PmRi76wg33D0eEgbtlAwYiEOTO+6jw3KDP8DMKd04uCJm9lkZdCAIHWcJR9wuyeuz7d8SV/AwJ1EEYV/7RuzPQh9l4yzFE6qTRIqS+PJ57ZB1R4SbBO6KjI4ol9QLpoSF5RpPh3N0LKNo1i5TG7KtfKAEwCuyT3xfFS8s7VmwCkISbCvqt4CqrFh7Y+A9M4roAP/dEeuI/x4kVR4cQAbGaJhuCymDks9zr9ByJfZlK5Ya+HWUnx4QWj3r5yFEE+cF7yIBWYEB3Gla2z40qWKG9Zw7tzxbwFdCym24XAPk3OM5uLxfLLYU4aUHROOzGrXM9rf8JFPsKkrDs1wCoJGGo3yHSZd1hf1MYZjHk4MvKNX8E6w7ekdeEm8wbOL9cobR+RK21CrW7rODVwduYifJ3O00mu6cRqxG/AYvnJtDhE9yTQigACWu64gAR9e2j0mt0/RBNtsibQosvQ0/rbwMfp30pq0wV/hqhc9ax0l1btDif2Iy2DuZkrrcTE8hxCMWKQ8Mb6eiRbIg1z0j2G+GcuyG8U+iOAnajNE8GGyEyZtqa8xBEqYlW1f/2IPXbMYJZSgZIPEFk5ur6DIXMDh3LKb2oitNNyPXNf18Y2yCD80qC36tF5vfp1m4w+fwDDHEeQ2cmxWtpXtCciJK/al8vscdnH/lLJJwIcDcl509hA=
   on:
     branch: master
+    condition: "$EMBER_TRY_SCENARIO = 'default'"
+    node: 'stable'
     tags: false
 after_deploy:
 - .travis/publish-gh-pages.sh
