@@ -11,7 +11,13 @@
 
 # ember-frost-modal-input
 
+ * [Installation](#installation)
+ * [API](#api)
+ * [Examples](#examples)
+ * [Development](#development)
+
 ## Installation
+
 ```
 ember install ember-frost-modal-input
 ```
