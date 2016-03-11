@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-modal-input",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/input-controls/modal-dialog-input",
   "directories": {
