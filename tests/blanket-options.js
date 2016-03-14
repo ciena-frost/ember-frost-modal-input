@@ -12,7 +12,7 @@ var options = {
     lcovOptions: {
       outputFile: 'coverage/lcov.info',
       renamer: function (fileName) {
-        return fileName.replace('ember-modal-input', 'addon') + '.js'
+        return fileName.replace('ember-frost-modal-input', 'addon') + '.js'
       }
     }
   }
