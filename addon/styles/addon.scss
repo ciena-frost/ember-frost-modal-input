@@ -1,6 +1,5 @@
 @import 'node_modules/ember-frost-theme/scss/frost-theme';
 
-
 .liquid-modal.form-container {
   .lm-container {
     align-items: center;
@@ -33,7 +32,7 @@
     color: $frost-color-grey-2;
 
     .primary-title {
-      font-size: $frost-font-xl
+      font-size: $frost-font-xl;
     }
 
     .sub-title {
@@ -71,5 +70,3 @@
     max-height: calc('100vh - 260px');
   }
 }
-
-
