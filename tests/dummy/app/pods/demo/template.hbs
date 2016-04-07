@@ -9,7 +9,7 @@
             size='medium'
             priority='secondary'
             text='Open form'
-            onClick=(action 'showForm')}}
+            onClick=(action 'onClickHandler')}}
           {{/frost-button}}
           {{liquid-modal class=(if isModalActive 'form-container' '')}}
         </div>
@@ -19,7 +19,7 @@
   size='medium'
   priority='secondary'
   text='Open form'
-  onClick=(action 'showForm')}}
+  onClick=(action 'onClickHandler')}}
 {{/frost-button}}
 {{liquid-modal class=(if isModalActive 'form-container' '')}}
   ```"

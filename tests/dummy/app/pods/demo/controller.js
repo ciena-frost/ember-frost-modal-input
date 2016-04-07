@@ -17,7 +17,7 @@ export default Controller.extend({
       console.log(attrs)
     },
 
-    showForm () {
+    onClickHandler () {
       this.set('showModalForm', true)
     }
   }
