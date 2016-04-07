@@ -1,5 +1,30 @@
-  frost-modal-input testbed<br>
-{{#frost-button class='secondary medium' on-click=(action 'showForm')}}
-  <div class='text'>Open form</div>
+ <div class="dummy-body">
+
+  <div class="section-title">frost-modal-input</div>
+  <hr>
+  <div class="section">
+    <div class="example">
+        <div class="demo">
+          {{#frost-button
+            size='medium'
+            priority='secondary'
+            text='Open form'
+            onClick=(action 'onClickHandler')}}
+          {{/frost-button}}
+          {{liquid-modal class=(if isModalActive 'form-container' '')}}
+        </div>
+        <div class="snippet">
+          {{format-markdown "```handlebars
+{{#frost-button
+  size='medium'
+  priority='secondary'
+  text='Open form'
+  onClick=(action 'onClickHandler')}}
 {{/frost-button}}
 {{liquid-modal class=(if isModalActive 'form-container' '')}}
+  ```"
+          }}
+        </div>
+    </div>
+  </div>
+</div>
