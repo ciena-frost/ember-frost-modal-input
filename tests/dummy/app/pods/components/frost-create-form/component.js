@@ -1,9 +1,11 @@
 import Ember from 'ember'
 import layout from './template'
 
-export default Ember.Component.extend({
+const { Component, inject } = Ember
+
+export default Component.extend({
   layout,
-  modalForms: Ember.inject.service('modal-forms'),
+  modalForms: inject.service('modal-forms'),
   userModel: {
     'type': 'object',
     'properties': {

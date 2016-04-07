@@ -1,9 +1,11 @@
 import Ember from 'ember'
 
-export default Ember.Controller.extend({
+const { Controller, computed, inject } = Ember
+
+export default Controller.extend({
   showModalForm: false,
-  isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
-  modalForms: Ember.inject.service('modal-forms'),
+  isModalActive: computed.readOnly('modalForms.isModalActive'),
+  modalForms: inject.service('modal-forms'),
   actions: {
     save (attrs) {
       this.notifications.addNotification({
