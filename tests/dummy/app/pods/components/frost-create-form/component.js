@@ -35,6 +35,33 @@ export default Component.extend({
       },
       'password2': {
         'type': 'string'
+      },
+      'username3': {
+        'type': 'string'
+      },
+      'description3': {
+        'type': 'string'
+      },
+      'password3': {
+        'type': 'string'
+      },
+      'username13': {
+        'type': 'string'
+      },
+      'description13': {
+        'type': 'string'
+      },
+      'password13': {
+        'type': 'string'
+      },
+      'username23': {
+        'type': 'string'
+      },
+      'description23': {
+        'type': 'string'
+      },
+      'password23': {
+        'type': 'string'
       }
     },
     'required': [
