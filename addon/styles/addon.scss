@@ -45,19 +45,22 @@
     top: 0;
     height: 109px;
     width: 100%;
-    background: red;
-    opacity: 0.5;
     z-index: 999;
 
-    // &:after {
-    //   content: '';
-    //   position: absolute;
-    //   height: 109px;
-    //   top: 0;
-    //   background: blue;
-    //   opacity: 0.5;
-    //   // z-index: -1;
-    // }
+    box-shadow: 0px 1px 2px 0px rgba($frost-color-grey-5 ,0.75);
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 109px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $frost-color-white;
+      opacity: 0.95;
+      z-index: -1;
+    }
 
     .primary-title {
       font-size: $frost-font-xl;
@@ -90,21 +93,36 @@
   }
 
   .actions {
-    height: 40px;
-    margin-top: 0px;
+    height: 80px;
     padding-right: 30px;
     box-shadow: 0px -1px 2px 0px rgba($frost-color-grey-5 ,0.75);
     align-items: center;
 
+    width: 100%;
+    z-index: 999;
+    position: absolute;
+    bottom: 0;
 
-  width: 100%;
-  z-index: 999;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: blue;
-  opacity: 0.5;
-  }
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    .frost-button {
+        width: 150px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 80px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $frost-color-white;
+      opacity: 0.95;
+      z-index: -1;
+    }
 
   }
 
