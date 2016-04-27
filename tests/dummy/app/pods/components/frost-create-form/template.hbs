@@ -1,11 +1,14 @@
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
 {{!#frost-modal-input titleComponent='myTitle'}}
 
-  {{frost-bunsen-form
-      model=userModel
-      view=userView
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')}}
+{{#perfect-scroll wheelSpeed=2 minScrollbarLength=20}}
+{{frost-bunsen-form
+    model=userModel
+    view=userView
+    onChange=(action 'formValueChanged')
+    onValidation=(action 'onValidation')}}
+{{/perfect-scroll}}
+
 
   <div class='actions'>
     {{#frost-button

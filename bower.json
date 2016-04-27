@@ -14,7 +14,8 @@
     "sinonjs": "1.17.1",
     "z-schema": "3.16.1",
     "marked": "^0.3.5",
-    "highlightjs": "^9.2.0"
+    "highlightjs": "^9.2.0",
+    "perfect-scrollbar": "^0.6.11"
   },
   "resolutions": {
     "ember": "~2.3.1"
