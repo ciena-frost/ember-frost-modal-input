@@ -5,5 +5,5 @@ const {Component} = Ember
 
 export default Component.extend({
   layout,
-  classNames: ['frost-modal-input'],
+  classNames: ['frost-modal-input']
 })
