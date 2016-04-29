@@ -1,4 +1,9 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
+$info-bar-height: 80px;
+$action-bar-height: 80px;
+$modal-padding: 90px;
+$form-margin-top: 14px;
+$form-margin-bottom: 4px;
 
 .liquid-modal.form-container {
   .lm-container {
@@ -17,11 +22,11 @@
 .ps-container {
     position: relative;
     overflow: auto;
-    max-height: calc(100vh - 90px);
+    max-height: calc(100vh - #{$modal-padding});
 
   .ps-scrollbar-y-rail {
-    margin-top: 109px;
-    margin-bottom: 80px;
+    margin-top: $info-bar-height;
+    margin-bottom: $action-bar-height;
   }
 }
 
@@ -29,7 +34,7 @@
   position: relative;
   width: 550px;
   max-width: 550px;
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - #{$modal-padding});
   padding: 0;
   background-color: $frost-color-white;
   box-shadow: 0px 0px 20px rgba(64, 64, 65, 0.5);
@@ -40,11 +45,10 @@
   overflow: hidden;
 
   .input-header {
-    padding: 30px;
-    color: $frost-color-grey-2;
+    padding: 20px 30px;
     position: absolute;
     top: 0;
-    height: 109px;
+    height: $info-bar-height;
     width: 100%;
     z-index: 999;
 
@@ -53,7 +57,7 @@
     &:after {
       content: '';
       position: absolute;
-      height: 109px;
+      height: $info-bar-height;
       top: 0;
       left: 0;
       bottom: 0;
@@ -64,25 +68,27 @@
     }
 
     .primary-title {
-      font-size: $frost-font-xl;
+      font-size: $frost-font-m;
+      color: $frost-color-night-2;
+      padding-bottom: 3px
     }
 
     .sub-title {
       font-size: $frost-font-s;
+      color: $frost-color-grey-5;
     }
   }
 
   .frost-bunsen-container {
-    margin-bottom: 80px;
+    margin-bottom: $action-bar-height + $form-margin-bottom;
   }
 
   .frost-bunsen-form {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding-right: 40px;
 
-      margin-top: 109px;
+      margin-top: $info-bar-height + $form-margin-top;
 
     .frost-fieldset {
       padding: 0 0 30px 30px;
@@ -98,7 +104,7 @@
   }
 
   .actions {
-    height: 80px;
+    height: $action-bar-height;
     padding-right: 30px;
     box-shadow: 0px -1px 2px 0px rgba($frost-color-grey-5 ,0.75);
     align-items: center;
@@ -119,7 +125,7 @@
     &:after {
       content: '';
       position: absolute;
-      height: 80px;
+      height: $action-bar-height;
       top: 0;
       left: 0;
       bottom: 0;
