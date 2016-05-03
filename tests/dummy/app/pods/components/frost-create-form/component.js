@@ -1,7 +1,87 @@
 import Ember from 'ember'
 import layout from './template'
+import $ from 'jquery'
 
 const { Component, inject } = Ember
+/**
+* frost-bunsen-form component event handler for scroll event
+* Checks scroll position within form to add/remove scroll styling to form
+*
+* @ctx {JQuery object}
+*/
+function formUpdateHandler () {
+  const $formEl = this.get('$formEl')
+  const $headerEl = this.get('$headerEl')
+  const $footerEl = this.get('$footerEl')
+  const scrollTop = $formEl.scrollTop()
+  const innerHeight = $formEl.innerHeight()
+  const scrollHeight = $formEl.get(0) && $formEl.get(0).scrollHeight
+
+  // style top of form with box shadow if content overflow hidden underneath header
+  if (scrollTop > 0) {
+    $headerEl.addClass('header-scrolled')
+  } else {
+    $headerEl.removeClass('header-scrolled')
+  }
+
+  // style bottom of form with box shadow if content overflow hidden underneath footer
+  if (scrollTop + innerHeight >= scrollHeight) {
+    $footerEl.removeClass('footer-scrolled')
+  } else {
+    $footerEl.addClass('footer-scrolled')
+  }
+}
+
+/**
+ * didUpdateAttrs function for setting frost-bunsen-form bindings
+ * sets bindings for 'scroll' as well as a window.MutationObserver.observe for mutating events
+ * on DOM node .frost-bunsen-form
+ *
+ * @ctx {Ember.component}
+ */
+function componentDidUpdateAttrsForForm () {
+  // select the target node
+
+  const $formEl = this.get('$formEl')
+
+  const setFormMutationObserver = () => {
+    // create an observer instance
+    this.set('formObserver', new window.MutationObserver((mutations) => {
+      mutations.forEach(function (mutation) {
+        const $formEl = $(mutation.target).parents('.ps-container')
+
+        if ($formEl) {
+          formUpdateHandler.apply(this)
+        } else {
+          console.error('Error observing frost-bunsen-form DOM node mutations')
+        }
+      })
+    }))
+
+    // configuration of the observer
+    const config = { attributes: true, childList: true, characterData: false, subtree: true }
+
+    // pass in the target DOM node, as well as the observer options
+
+    this.get('formObserver').observe($formEl.get(0), config)
+  }
+
+  // make sure we only bind the form element once during component lifetime
+  if (!this.get('formBindingsSet') && $formEl.length > 0) {
+    setFormMutationObserver()
+    $(document).on('ps-scroll-up', () => $('.actions').addClass('footer-scrolled'))
+    $(document).on('ps-scroll-down', () => $('.input-header').addClass('header-scrolled'))
+    $(document).on('ps-y-reach-start', () => $('.input-header').removeClass('header-scrolled'))
+    $(document).on('ps-y-reach-end', () => $('.actions').removeClass('footer-scrolled'))
+  }
+
+  $(window).resize(() => formUpdateHandler.apply(this))
+
+  // update scroll styles if content already hidden
+  formUpdateHandler.apply(this)
+
+  this.set('formBindingsSet', true)
+}
 
 export default Component.extend({
   layout,
@@ -9,15 +89,6 @@ export default Component.extend({
   userModel: {
     'type': 'object',
     'properties': {
-      'username': {
-        'type': 'string'
-      },
-      'description': {
-        'type': 'string'
-      },
-      'password': {
-        'type': 'string'
-      },
       'username1': {
         'type': 'string'
       },
@@ -45,22 +116,22 @@ export default Component.extend({
       'password3': {
         'type': 'string'
       },
-      'username13': {
+      'username4': {
         'type': 'string'
       },
-      'description13': {
+      'description4': {
         'type': 'string'
       },
-      'password13': {
+      'password4': {
         'type': 'string'
       },
-      'username23': {
+      'username5': {
         'type': 'string'
       },
-      'description23': {
+      'description5': {
         'type': 'string'
       },
-      'password23': {
+      'password5': {
         'type': 'string'
       }
     },
@@ -68,15 +139,41 @@ export default Component.extend({
       'username', 'password'
     ]
   },
-
+  formBindingsSet: false,
+  formObserver: null,  // @type {MutationObserver}
   userView: {},
+  $formEl: null,
+  $headerEl: null,
+  $footerEl: null,
 
+  /* Ember.Component method */
   willInsertElement () {
     this.get('modalForms').setModalActive(true)
   },
 
+  /* Ember.Component method */
   willDestroyElement () {
     this.get('modalForms').setModalActive(false)
+
+    $(document).off('ps-scroll-up')
+    $(document).off('ps-scroll-down')
+    $(document).off('ps-y-reach-start')
+    $(document).off('ps-y-reach-end')
+
+    $(window).off('resize')
+
+    this.get('formObserver').disconnect()
+  },
+
+  /* Ember.Component method */
+  didUpdateAttrs () {
+    this._super(...arguments)
+
+    this.set('$formEl', this.$('.ps-container'))
+    this.set('$headerEl', this.$('.input-header'))
+    this.set('$footerEl', this.$('.actions'))
+
+    componentDidUpdateAttrsForForm.apply(this)
   },
 
   formData: {
