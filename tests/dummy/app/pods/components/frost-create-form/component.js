@@ -3,19 +3,18 @@ import layout from './template'
 import $ from 'jquery'
 
 const { Component, inject } = Ember
+
 /**
-* frost-bunsen-form component event handler for scroll event
-* Checks scroll position within form to add/remove scroll styling to form
-*
-* @ctx {JQuery object}
-*/
-function formUpdateHandler () {
-  const $formEl = this.get('$formEl')
+* Checks scroll position within container element to add/remove scroll styling to header/footer elements
+ *  * @ctx {Ember.component}
+ */
+function updateScrollStyles () {
+  const $containerEl = this.get('$containerEl')
   const $headerEl = this.get('$headerEl')
   const $footerEl = this.get('$footerEl')
-  const scrollTop = $formEl.scrollTop()
-  const innerHeight = $formEl.innerHeight()
-  const scrollHeight = $formEl.get(0) && $formEl.get(0).scrollHeight
+  const scrollTop = $containerEl.scrollTop()
+  const innerHeight = $containerEl.innerHeight()
+  const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
 
   // style top of form with box shadow if content overflow hidden underneath header
   if (scrollTop > 0) {
@@ -39,21 +38,21 @@ function formUpdateHandler () {
  *
  * @ctx {Ember.component}
  */
-function componentDidUpdateAttrsForForm () {
-  // select the target node
-
-  const $formEl = this.get('$formEl')
+function scrollContainerUpdateAttrs () {
+  const $containerEl = this.get('$containerEl')
+  const $headerEl = this.get('$headerEl')
+  const $footerEl = this.get('$footerEl')
 
   const setFormMutationObserver = () => {
     // create an observer instance
     this.set('formObserver', new window.MutationObserver((mutations) => {
-      mutations.forEach(function (mutation) {
-        const $formEl = $(mutation.target).parents('.ps-container')
+      mutations.forEach((mutation) => {
+        const $containerEl = $(mutation.target).parents('.ps-container')
 
-        if ($formEl) {
-          formUpdateHandler.apply(this)
+        if ($containerEl) {
+          updateScrollStyles.apply(this)
         } else {
-          console.error('Error observing frost-bunsen-form DOM node mutations')
+          console.error('Error observing scroll container element mutations')
         }
       })
     }))
@@ -63,24 +62,25 @@ function componentDidUpdateAttrsForForm () {
 
     // pass in the target DOM node, as well as the observer options
 
-    this.get('formObserver').observe($formEl.get(0), config)
+    this.get('formObserver').observe($containerEl.get(0), config)
   }
 
-  // make sure we only bind the form element once during component lifetime
-  if (!this.get('formBindingsSet') && $formEl.length > 0) {
+  // make sure we only bind the scroll container element once during component lifetime
+  if (!this.get('conatinerBindingsSet') && $containerEl.length > 0) {
     setFormMutationObserver()
-    $(document).on('ps-scroll-up', () => $('.actions').addClass('footer-scrolled'))
-    $(document).on('ps-scroll-down', () => $('.input-header').addClass('header-scrolled'))
-    $(document).on('ps-y-reach-start', () => $('.input-header').removeClass('header-scrolled'))
-    $(document).on('ps-y-reach-end', () => $('.actions').removeClass('footer-scrolled'))
+
+    $(document).on('ps-scroll-up', () => $footerEl.addClass('footer-scrolled'))
+    $(document).on('ps-y-reach-end', () => $footerEl.removeClass('footer-scrolled'))
+    $(document).on('ps-scroll-down', () => $headerEl.addClass('header-scrolled'))
+    $(document).on('ps-y-reach-start', () => $headerEl.removeClass('header-scrolled'))
+
+    $(window).resize(() => updateScrollStyles.apply(this))
+
+    // update scroll styles if content already hidden
+    updateScrollStyles.apply(this)
+
+    this.set('containerBindingsSet', true)
   }
-
-  $(window).resize(() => formUpdateHandler.apply(this))
-
-  // update scroll styles if content already hidden
-  formUpdateHandler.apply(this)
-
-  this.set('formBindingsSet', true)
 }
 
 export default Component.extend({
@@ -139,12 +139,15 @@ export default Component.extend({
       'username', 'password'
     ]
   },
-  formBindingsSet: false,
+  conatinerBindingsSet: false,
   formObserver: null,  // @type {MutationObserver}
   userView: {},
-  $formEl: null,
+  $containerEl: null,
   $headerEl: null,
   $footerEl: null,
+  containerElClassname: 'ps-container',
+  headerElClassname: 'input-header',
+  footerElClassname: 'actions',
 
   /* Ember.Component method */
   willInsertElement () {
@@ -155,6 +158,7 @@ export default Component.extend({
   willDestroyElement () {
     this.get('modalForms').setModalActive(false)
 
+    // perfect-scrollbar events
     $(document).off('ps-scroll-up')
     $(document).off('ps-scroll-down')
     $(document).off('ps-y-reach-start')
@@ -169,11 +173,11 @@ export default Component.extend({
   didUpdateAttrs () {
     this._super(...arguments)
 
-    this.set('$formEl', this.$('.ps-container'))
-    this.set('$headerEl', this.$('.input-header'))
-    this.set('$footerEl', this.$('.actions'))
+    this.set('$containerEl', this.$('.' + this.get('containerElClassname')))
+    this.set('$headerEl', this.$('.' + this.get('headerElClassname')))
+    this.set('$footerEl', this.$('.' + this.get('footerElClassname')))
 
-    componentDidUpdateAttrsForForm.apply(this)
+    scrollContainerUpdateAttrs.apply(this)
   },
 
   formData: {
