@@ -32,8 +32,8 @@ $form-margin-bottom: 4px;
 
 
   .ps-scrollbar-y-rail {
-    margin-top: $info-bar-height;
-    margin-bottom: $action-bar-height;
+    margin-top: $info-bar-height + $info-bar-border-width;
+    margin-bottom: $action-bar-height + $info-bar-border-width;
   }
 }
 
@@ -94,14 +94,6 @@ $form-margin-bottom: 4px;
   .frost-bunsen-container {
     margin-bottom: $action-bar-height + $form-margin-bottom;
   }
-
-  .frost-bunsen-form {
-
-    }
-    > .header {
-
-    }
-
 
 
   .frost-bunsen-form {
