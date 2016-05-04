@@ -103,10 +103,7 @@ export default Component.extend({
   /* Ember.Component method */
   willDestroyElement () {
     // perfect-scrollbar events
-    $(document).off('ps-scroll-up')
-    $(document).off('ps-scroll-down')
-    $(document).off('ps-y-reach-start')
-    $(document).off('ps-y-reach-end')
+    $(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
 
     $(window).off('resize')
 
