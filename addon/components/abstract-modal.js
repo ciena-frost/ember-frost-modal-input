@@ -10,6 +10,28 @@ import $ from 'jquery'
 const {Component} = Ember
 
 /**
+ * create a window.MutationObserver on the container element
+ * mutation events callback invokes updateScrollStyles()
+ * @returns {MutationObserver} window.MutationObserver on container element
+ */
+function createMutationObserver () {
+  // create an observer instance
+  let mutationObserver = new window.MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      updateScrollStyles.apply(this)
+    })
+  })
+
+  // configuration of the observer
+  const config = { attributes: false, childList: true, characterData: false, subtree: true }
+
+  // pass in the target DOM node, as well as the observer options
+  mutationObserver.observe(this.get('$containerEl').get(0), config)
+
+  return mutationObserver
+}
+
+/**
 * Checks scroll position within container element to add/remove scroll styling to header/footer elements
 * @ctx {Ember.component}
 */
@@ -21,7 +43,13 @@ function updateScrollStyles () {
   const innerHeight = $containerEl.innerHeight()
   const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
 
+  // update perfect-scrollbar before checking scoll position
+  // need to disconnect MutationObserver then re-establish to prevent infinite loop
+  // of mutation event triggers, callback updates, which triggers new mutation event...
   Ps.update($containerEl.get(0))
+  this.get('containerObserver').disconnect()
+  this.set('containerObserver', createMutationObserver.apply(this))
+
   // style top of form with box shadow if content overflow hidden underneath header
   if (scrollTop > 0) {
     $headerEl.addClass('header-scrolled')
@@ -43,28 +71,10 @@ function updateScrollStyles () {
  * @ctx {Ember.component}
  */
 function setScrollBindings () {
-  const $containerEl = this.get('$containerEl')
   const $headerEl = this.get('$headerEl')
   const $footerEl = this.get('$footerEl')
 
-  const createContainerObserver = () => {
-    // create an observer instance
-    let mutationObserver = new window.MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        updateScrollStyles.apply(this)
-      })
-    })
-
-    // configuration of the observer
-    const config = { attributes: true, childList: true, characterData: false, subtree: true }
-
-    // pass in the target DOM node, as well as the observer options
-    mutationObserver.observe($containerEl.get(0), config)
-
-    this.set('containerObserver', mutationObserver)
-  }
-
-  createContainerObserver()
+  this.set('containerObserver', createMutationObserver.apply(this))
 
   // bind document to perfect-scrollbar events
   $(document).on('ps-scroll-up', () => $footerEl.addClass('footer-scrolled'))
