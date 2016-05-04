@@ -1,3 +1,5 @@
+/* global Ps */
+
 /**
  * Functionality to style headder/footer elements depending on scroll state, content hidden under header/footer
  */
@@ -19,6 +21,7 @@ function updateScrollStyles () {
   const innerHeight = $containerEl.innerHeight()
   const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
 
+  Ps.update($containerEl.get(0))
   // style top of form with box shadow if content overflow hidden underneath header
   if (scrollTop > 0) {
     $headerEl.addClass('header-scrolled')
