@@ -46,6 +46,7 @@ function updateScrollStyles () {
   // update perfect-scrollbar before checking scoll position
   // need to disconnect MutationObserver then re-establish to prevent infinite loop
   // of mutation event triggers, callback updates, which triggers new mutation event...
+
   Ps.update($containerEl.get(0))
   this.get('containerObserver').disconnect()
   this.set('containerObserver', createMutationObserver.apply(this))
@@ -105,7 +106,7 @@ export default Component.extend({
     // perfect-scrollbar events
     $(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
 
-    $(window).off('resize')
+    $(window).off('resize', () => updateScrollStyles.apply(this))
 
     if (this.get('containerObserver')) {
       this.get('containerObserver').disconnect()
