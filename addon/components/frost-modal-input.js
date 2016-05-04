@@ -1,7 +1,9 @@
 import Ember from 'ember'
 import layout from '../templates/components/frost-modal-input'
 
-export default Ember.Component.extend({
+const {Component} = Ember
+
+export default Component.extend({
   layout,
   classNames: ['frost-modal-input']
 })
