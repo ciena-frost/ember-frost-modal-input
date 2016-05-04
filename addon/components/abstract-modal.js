@@ -9,94 +9,12 @@ import $ from 'jquery'
 
 const {Component} = Ember
 
-/**
- * create a window.MutationObserver on the container element
- * mutation events callback invokes updateScrollStyles()
- * @returns {MutationObserver} window.MutationObserver on container element
- */
-function createMutationObserver () {
-  // create an observer instance
-  let mutationObserver = new window.MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      updateScrollStyles.apply(this)
-    })
-  })
-
-  // configuration of the observer
-  const config = { attributes: false, childList: true, characterData: false, subtree: true }
-
-  // pass in the target DOM node, as well as the observer options
-  mutationObserver.observe(this.get('$containerEl').get(0), config)
-
-  return mutationObserver
-}
-
-/**
-* Checks scroll position within container element to add/remove scroll styling to header/footer elements
-* @ctx {Ember.component}
-*/
-function updateScrollStyles () {
-  const $containerEl = this.get('$containerEl')
-  const $headerEl = this.get('$headerEl')
-  const $footerEl = this.get('$footerEl')
-  const scrollTop = $containerEl.scrollTop()
-  const innerHeight = $containerEl.innerHeight()
-  const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
-
-  // update perfect-scrollbar before checking scoll position
-  // need to disconnect MutationObserver then re-establish to prevent infinite loop
-  // of mutation event triggers, callback updates, which triggers new mutation event...
-
-  Ps.update($containerEl.get(0))
-  this.get('containerObserver').disconnect()
-  this.set('containerObserver', createMutationObserver.apply(this))
-
-  // style top of form with box shadow if content overflow hidden underneath header
-  if (scrollTop > 0) {
-    $headerEl.addClass('header-scrolled')
-  } else {
-    $headerEl.removeClass('header-scrolled')
-  }
-
-  // style bottom of form with box shadow if content overflow hidden underneath footer
-  if (scrollTop + innerHeight >= scrollHeight) {
-    $footerEl.removeClass('footer-scrolled')
-  } else {
-    $footerEl.addClass('footer-scrolled')
-  }
-}
-
-/**
- * sets bindings/callbacks for perfect-scrollbar events on document element
- * creates a window.MutationObserver for mutating events on container element
- * @ctx {Ember.component}
- */
-function setScrollBindings () {
-  const $headerEl = this.get('$headerEl')
-  const $footerEl = this.get('$footerEl')
-
-  this.set('containerObserver', createMutationObserver.apply(this))
-
-  // bind document to perfect-scrollbar events
-  $(document).on('ps-scroll-up', () => $footerEl.addClass('footer-scrolled'))
-  $(document).on('ps-y-reach-end', () => $footerEl.removeClass('footer-scrolled'))
-  $(document).on('ps-scroll-down', () => $headerEl.addClass('header-scrolled'))
-  $(document).on('ps-y-reach-start', () => $headerEl.removeClass('header-scrolled'))
-
-  $(window).resize(() => updateScrollStyles.apply(this))
-
-  // update scroll styles in case where content already hidden on initial DOM render
-  updateScrollStyles.apply(this)
-
-  this.set('scrollBindingsSet', true)
-}
-
 export default Component.extend({
   scrollBindingsSet: false,
-  containerObserver: null,  // @type {MutationObserver}
-  $containerEl: null,
-  $headerEl: null,
-  $footerEl: null,
+  containerObserver: null,  // @type {window.MutationObserver}
+  $containerEl: null, // @type {JQuery object}
+  $headerEl: null, // @type {JQuery object}
+  $footerEl: null, // @type {JQuery object}
   containerElClassname: 'ps-container',
   headerElClassname: 'input-header',
   footerElClassname: 'actions',
@@ -106,7 +24,7 @@ export default Component.extend({
     // perfect-scrollbar events
     $(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
 
-    $(window).off('resize', () => updateScrollStyles.apply(this))
+    $(window).off('resize', this.updateScrollStyles)
 
     if (this.get('containerObserver')) {
       this.get('containerObserver').disconnect()
@@ -125,7 +43,105 @@ export default Component.extend({
       return
     }
     if (!this.get('scrollBindingsSet')) {
-      setScrollBindings.apply(this)
+      this.setScrollBindings()
     }
+  },
+
+  /**
+   * create a window.MutationObserver on the container element
+   * mutation events callback invokes updateScrollStyles()
+   * @returns {MutationObserver} window.MutationObserver on container element
+   */
+
+  createMutationObserver () {
+    // create an observer instance
+    let mutationObserver = new window.MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        this.updateScrollStyles()
+      })
+    })
+
+    // configuration of the observer
+    const config = { attributes: false, childList: true, characterData: false, subtree: true }
+
+    // pass in the target DOM node, as well as the observer options
+    mutationObserver.observe(this.get('$containerEl').get(0), config)
+
+    return mutationObserver
+  },
+
+  /**
+  * update perfect-scrollbar before checking scoll position
+  * need to disconnect MutationObserver then re-establish to prevent infinite loop
+  * of mutation event triggers, callback updates, which triggers new mutation event...
+  */
+  updatePerfectScrollbar () {
+    let mutationObserver
+    const $containerEl = this.get('$containerEl')
+
+    Ps.update($containerEl.get(0))
+
+    if (this.get('containerObserver')) {
+      this.get('containerObserver').disconnect()
+      mutationObserver = this.createMutationObserver()
+    }
+
+    if (this.isDestroyed || this.isDestroying) {
+      return
+    } else {
+      this.set('containerObserver', mutationObserver)
+    }
+  },
+
+  /**
+  * Checks scroll position within container element to add/remove scroll styling to header/footer elements
+  */
+  updateScrollStyles () {
+    const $containerEl = this.get('$containerEl')
+    const $headerEl = this.get('$headerEl')
+    const $footerEl = this.get('$footerEl')
+    const scrollTop = $containerEl.scrollTop()
+    const innerHeight = $containerEl.innerHeight()
+    const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
+
+    this.updatePerfectScrollbar()
+
+    // style top of form with box shadow if content overflow hidden underneath header
+    if (scrollTop > 0) {
+      $headerEl.addClass('header-scrolled')
+    } else {
+      $headerEl.removeClass('header-scrolled')
+    }
+
+    // style bottom of form with box shadow if content overflow hidden underneath footer
+    if (scrollTop + innerHeight >= scrollHeight) {
+      $footerEl.removeClass('footer-scrolled')
+    } else {
+      $footerEl.addClass('footer-scrolled')
+    }
+  },
+
+  /**
+   * sets bindings/callbacks for perfect-scrollbar events on document element
+   * creates a window.MutationObserver for mutating events on container element
+   */
+  setScrollBindings () {
+    const $headerEl = this.get('$headerEl')
+    const $footerEl = this.get('$footerEl')
+
+    this.set('containerObserver', this.createMutationObserver())
+
+    // bind document to perfect-scrollbar events
+    $(document).on('ps-scroll-up', () => $footerEl.addClass('footer-scrolled'))
+    $(document).on('ps-y-reach-end', () => $footerEl.removeClass('footer-scrolled'))
+    $(document).on('ps-scroll-down', () => $headerEl.addClass('header-scrolled'))
+    $(document).on('ps-y-reach-start', () => $headerEl.removeClass('header-scrolled'))
+
+    $(window).resize(this.updateScrollStyles.bind(this))
+
+    // update scroll styles in case where content already hidden on initial DOM render
+    this.updateScrollStyles()
+
+    this.set('scrollBindingsSet', true)
   }
 })
