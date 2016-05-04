@@ -19,34 +19,6 @@ export default Component.extend({
   headerElClassname: 'input-header',
   footerElClassname: 'actions',
 
-  /* Ember.Component method */
-  willDestroyElement () {
-    // perfect-scrollbar events
-    $(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
-
-    $(window).off('resize', this.updateScrollStyles)
-
-    if (this.get('containerObserver')) {
-      this.get('containerObserver').disconnect()
-    }
-  },
-
-  /* Ember.Component method */
-  didUpdateAttrs () {
-    this._super(...arguments)
-
-    this.set('$containerEl', this.$('.' + this.get('containerElClassname')))
-    this.set('$headerEl', this.$('.' + this.get('headerElClassname')))
-    this.set('$footerEl', this.$('.' + this.get('footerElClassname')))
-
-    if (!(this.get('$containerEl').length > 0 && this.get('$headerEl').length > 0 && this.get('$footerEl').length > 0)) {
-      return
-    }
-    if (!this.get('scrollBindingsSet')) {
-      this.setScrollBindings()
-    }
-  },
-
   /**
    * create a window.MutationObserver on the container element
    * mutation events callback invokes updateScrollStyles()
@@ -143,5 +115,32 @@ export default Component.extend({
     this.updateScrollStyles()
 
     this.set('scrollBindingsSet', true)
+  },
+  /* Ember.Component method */
+  willDestroyElement () {
+    // perfect-scrollbar events
+    $(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
+
+    $(window).off('resize', this.updateScrollStyles)
+
+    if (this.get('containerObserver')) {
+      this.get('containerObserver').disconnect()
+    }
+  },
+
+  /* Ember.Component method */
+  didUpdateAttrs () {
+    this._super(...arguments)
+
+    this.set('$containerEl', this.$('.' + this.get('containerElClassname')))
+    this.set('$headerEl', this.$('.' + this.get('headerElClassname')))
+    this.set('$footerEl', this.$('.' + this.get('footerElClassname')))
+
+    if (!(this.get('$containerEl').length > 0 && this.get('$headerEl').length > 0 && this.get('$footerEl').length > 0)) {
+      return
+    }
+    if (!this.get('scrollBindingsSet')) {
+      this.setScrollBindings()
+    }
   }
 })
