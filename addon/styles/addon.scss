@@ -3,6 +3,7 @@ $info-bar-height: 80px;
 $info-bar-padding-top-bottom: 20px;
 $info-bar-padding-left-right: 30px;
 $info-bar-border-width: 1px;
+$action-bar-border-width: 1px;
 $action-bar-height: 80px;
 $modal-padding: 90px;
 $form-margin-top: 14px;
@@ -63,19 +64,18 @@ $form-margin-bottom: 4px;
     &.header-scrolled {
       box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
       border-bottom: none;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      height: $info-bar-height;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: $frost-color-white;
-      z-index: -1;
-      opacity: 0.95;
+      &:after {
+        content: '';
+        position: absolute;
+        height: $info-bar-height + $info-bar-border-width;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: $frost-color-white;
+        z-index: -1;
+        opacity: 0.95;
+      }
     }
 
     .primary-title {
@@ -119,7 +119,7 @@ $form-margin-bottom: 4px;
   }
 
   .actions {
-    height: $action-bar-height + $info-bar-border-width;
+    height: $action-bar-height + $action-bar-border-width;
     padding-right: 30px;
     align-items: center;
 
@@ -138,24 +138,24 @@ $form-margin-bottom: 4px;
     &.footer-scrolled {
       box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.25);
       border-top: none;
+      &:after {
+        content: '';
+        position: absolute;
+        height: $action-bar-height + $action-bar-border-width;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: $frost-color-white;
+        opacity: 0.95;
+        z-index: -1;
+      }
     }
 
     > .frost-button {
         width: 150px;
     }
 
-    &:after {
-      content: '';
-      position: absolute;
-      height: $action-bar-height;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: $frost-color-white;
-      opacity: 0.95;
-      z-index: -1;
-    }
   }
 
 
