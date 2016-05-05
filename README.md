@@ -47,9 +47,18 @@ willDestroyElement () {
   this.get('modalForms').setModalActive(false)
 }
 ```
-#### Controller using perfect-scroll helper
+
+###Steps to include perfect-scroll helper in ember-frost-modal-input
+This will give you styling of header/footer when content is scrolled underneath either element
+Styling includes:  box shadow plus transparency effect in header/footer
+See Demo Route:  http://ciena-frost.github.io/ember-frost-modal-input/perfect-scroll
+
+##### 1) Extend component from AbstractModal
+Import AbstractModal from 'ember-frost-modal-input'
 Extend your component from AbstractModal
+Below is an example of component.js
 ```js
+import layout from './template'
 import {AbstractModal} from 'ember-frost-modal-input'
 const {inject} = Ember
 
@@ -104,30 +113,8 @@ export default AbstractModal.extend({
   }
 })
 ```
-
-### Template
-Custom classes are applied to the parent template, based on state of the modal
-```handlebars
-{{liquid-modal class=(if isModalActive 'form-container' '')}}
-```
-
-#### Default title component template
-```handlebars
-{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
-    // Custom modal content
-{{/frost-modal-input}}
-```
-
-#### Custom title component template
-```handlebars
-{{#frost-modal-input titleComponent='myTitleComponent'}}
-  // Custom modal content
-{{/frost-modal-input}}
-```
-
-#### Template example using perfect-scroll helper
-Container div needs to be wrapped in perfect-scroll helper
-Footer div needs class of 'actions'
+##### 2) Wrap container element with perfect-scroll helper in template
+Below is an example of template.hbs
 ```handlebars
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
 {{!#frost-modal-input titleComponent='myTitle'}}
@@ -156,6 +143,42 @@ Footer div needs class of 'actions'
       text='Save'
       priority='primary'}}
   </div>
+{{/frost-modal-input}}
+```
+##### 3) Footer needs class 'actions'
+See above template for placement of footer
+```handlebars
+<div class='actions'>
+  {{frost-button
+    onClick=(action 'cancel')
+    size='medium'
+    text='Cancel'
+    priority='tertiary'}}
+  {{frost-button
+    onClick=(action 'save')
+    size='medium'
+    text='Save'
+    priority='primary'}}
+</div>
+```
+
+### Template
+Custom classes are applied to the parent template, based on state of the modal
+```handlebars
+{{liquid-modal class=(if isModalActive 'form-container' '')}}
+```
+
+#### Default title component template
+```handlebars
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+    // Custom modal content
+{{/frost-modal-input}}
+```
+
+#### Custom title component template
+```handlebars
+{{#frost-modal-input titleComponent='myTitleComponent'}}
+  // Custom modal content
 {{/frost-modal-input}}
 ```
 
