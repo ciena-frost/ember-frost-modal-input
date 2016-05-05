@@ -47,6 +47,63 @@ willDestroyElement () {
   this.get('modalForms').setModalActive(false)
 }
 ```
+#### Controller using perfect-scroll helper
+Extend your component from AbstractModal
+```js
+import {AbstractModal} from 'ember-frost-modal-input'
+const {inject} = Ember
+
+export default AbstractModal.extend({
+  layout,
+  modalForms: inject.service('modal-forms'),
+  userModel: {},
+
+  /* Ember.Component method */
+  willInsertElement () {
+    this.get('modalForms').setModalActive(true)
+  },
+
+  /* Ember.Component method */
+  willDestroyElement () {
+    this.get('modalForms').setModalActive(false)
+  },
+
+  formData: {
+    state: {},
+    isValid: false
+  },
+
+  clearForm () {
+    this.set('formData', {
+      state: {},
+      isValid: false
+    })
+  },
+
+  actions: {
+    cancel () {
+      this.clearForm()
+      this.sendAction('dismiss')
+    },
+
+    formValueChanged (formState) {
+      this.set('formData.state', formState)
+    },
+
+    onValidation (info) {
+      this.set('formData.isValid', info.valid)
+    },
+
+    save () {
+      if (this.get('formData.isValid')) {
+        this.sendAction('save', this.get('formData.state'))
+        this.sendAction('dismiss')
+        this.clearForm()
+      }
+    }
+  }
+})
+```
 
 ### Template
 Custom classes are applied to the parent template, based on state of the modal
@@ -65,6 +122,40 @@ Custom classes are applied to the parent template, based on state of the modal
 ```handlebars
 {{#frost-modal-input titleComponent='myTitleComponent'}}
   // Custom modal content
+{{/frost-modal-input}}
+```
+
+#### Template example using perfect-scroll helper
+Container div needs to be wrapped in perfect-scroll helper
+Footer div needs class of 'actions'
+```handlebars
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+{{!#frost-modal-input titleComponent='myTitle'}}
+
+  {{#perfect-scroll
+    wheelSpeed=2
+    minScrollbarLength=20
+    maxScrollbarLength=150
+  }}
+  {{frost-bunsen-form
+      model=userModel
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
+  {{/perfect-scroll}}
+
+  <div class='actions'>
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  </div>
 {{/frost-modal-input}}
 ```
 
