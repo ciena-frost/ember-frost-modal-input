@@ -48,14 +48,38 @@ willDestroyElement () {
 }
 ```
 
-###Steps to include perfect-scroll helper in ember-frost-modal-input
-This will give you styling of header/footer when content is scrolled underneath either element
-Styling includes:  box shadow plus transparency effect in header/footer
-See Demo Route:  http://ciena-frost.github.io/ember-frost-modal-input/perfect-scroll
+### Template
+Custom classes are applied to the parent template, based on state of the modal
+```handlebars
+{{liquid-modal class=(if isModalActive 'form-container' '')}}
+```
 
-##### 1) Extend component from AbstractModal
-Import AbstractModal from 'ember-frost-modal-input'
-Extend your component from AbstractModal
+#### Default title component template
+```handlebars
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+    // Custom modal content
+{{/frost-modal-input}}
+```
+
+#### Custom title component template
+```handlebars
+{{#frost-modal-input titleComponent='myTitleComponent'}}
+  // Custom modal content
+{{/frost-modal-input}}
+```
+### Steps to include ember-perfectscroll
+
+This will give you styling of header/footer when content is scrolled underneath either element
+
+Styling includes:  box shadow plus slight transparency in header/footer to reveal content underneath
+
+See [Demo](http://ciena-frost.github.io/ember-frost-modal-input/perfect-scroll)
+
+##### 1) Controller with ember-perfectscroll
+Import AbstractModal into your parent controller
+
+Extend your parent controller from AbstractModal
+
 Below is an example of component.js
 ```js
 import layout from './template'
@@ -113,7 +137,13 @@ export default AbstractModal.extend({
   }
 })
 ```
-##### 2) Wrap container element with perfect-scroll helper in template
+##### 2) Template with ember-perfectscroll
+###### a) Wrap container element with ember-perfectscroll helper
+###### b) Footer element must have class 'actions'
+###### c) Specify options for [ember-perfectscroll](https://www.npmjs.com/package/ember-perfectscroll) helper such as wheelSpeed, minScrollbarLength, etc.
+
+For more documentation on options: ember-perfectscroll uses [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar) 
+
 Below is an example of template.hbs
 ```handlebars
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
@@ -145,43 +175,6 @@ Below is an example of template.hbs
   </div>
 {{/frost-modal-input}}
 ```
-##### 3) Footer needs class 'actions'
-See above template for placement of footer
-```handlebars
-<div class='actions'>
-  {{frost-button
-    onClick=(action 'cancel')
-    size='medium'
-    text='Cancel'
-    priority='tertiary'}}
-  {{frost-button
-    onClick=(action 'save')
-    size='medium'
-    text='Save'
-    priority='primary'}}
-</div>
-```
-
-### Template
-Custom classes are applied to the parent template, based on state of the modal
-```handlebars
-{{liquid-modal class=(if isModalActive 'form-container' '')}}
-```
-
-#### Default title component template
-```handlebars
-{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
-    // Custom modal content
-{{/frost-modal-input}}
-```
-
-#### Custom title component template
-```handlebars
-{{#frost-modal-input titleComponent='myTitleComponent'}}
-  // Custom modal content
-{{/frost-modal-input}}
-```
-
 ## Development
 ### Setup
 ```
