@@ -1,30 +1,16 @@
- <div class="dummy-body">
-
-  <div class="section-title">frost-modal-input</div>
-  <hr>
-  <div class="section">
-    <div class="example">
-        <div class="demo">
-          {{#frost-button
-            size='medium'
-            priority='secondary'
-            text='Open form'
-            onClick=(action 'onClickHandler')}}
-          {{/frost-button}}
-          {{liquid-modal class=(if isModalActive 'form-container' '')}}
-        </div>
-        <div class="snippet">
-          {{format-markdown "```handlebars
-{{#frost-button
-  size='medium'
+<div class="dummy-body">
+  {{#frost-link 'demo.default'
   priority='secondary'
-  text='Open form'
-  onClick=(action 'onClickHandler')}}
-{{/frost-button}}
-{{liquid-modal class=(if isModalActive 'form-container' '')}}
-  ```"
-          }}
-        </div>
-    </div>
-  </div>
+  size='small'
+  }}
+  Default
+  {{/frost-link}}
+  {{#frost-link 'demo.perfect-scroll'
+    priority='secondary'
+    size='small'
+  }}
+    Perfect Scroll
+  {{/frost-link}}
+
+  {{outlet}}
 </div>
