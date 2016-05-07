@@ -30,8 +30,8 @@ ember install ember-frost-modal-input
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 
 ## Examples
-### Controller
-Inject the modal-forms service into the parent controller
+### Component
+Inject the modal-forms service into the parent component
 ```js
 modalForms: Ember.inject.service('modal-forms'),
 isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
@@ -73,12 +73,12 @@ This will give you styling of header/footer when content is scrolled underneath 
 
 Styling includes:  box shadow plus slight transparency in header/footer to reveal content underneath
 
-See [Demo](http://ciena-frost.github.io/ember-frost-modal-input/perfect-scroll)
+See [Demo](http://ciena-frost.github.io/ember-frost-modal-input)
 
-##### 1) Controller with ember-perfectscroll
-Import AbstractModal into your parent controller
+##### 1) Component with ember-perfectscroll
+Import AbstractModal into your parent component
 
-Extend your parent controller from AbstractModal
+Extend your parent component from AbstractModal
 
 Below is an example of component.js
 ```js
@@ -142,7 +142,7 @@ export default AbstractModal.extend({
 ###### b) Footer element must have class 'actions'
 ###### c) Specify options for [ember-perfectscroll](https://www.npmjs.com/package/ember-perfectscroll) helper such as wheelSpeed, minScrollbarLength, etc.
 
-For more documentation on options: ember-perfectscroll uses [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar) 
+For more documentation on options: ember-perfectscroll uses [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar)
 
 Below is an example of template.hbs
 ```handlebars
