@@ -60,9 +60,9 @@ export default Component.extend({
 
     if (this.isDestroyed || this.isDestroying) {
       return
-    } else {
-      this.set('containerObserver', mutationObserver)
     }
+
+    this.set('containerObserver', mutationObserver)
   },
 
   /**
@@ -75,22 +75,15 @@ export default Component.extend({
     const scrollTop = $containerEl.scrollTop()
     const innerHeight = $containerEl.innerHeight()
     const scrollHeight = $containerEl.get(0) && $containerEl.get(0).scrollHeight
-
     this.updatePerfectScrollbar()
 
     // style top of form with box shadow if content overflow hidden underneath header
-    if (scrollTop > 0) {
-      $headerEl.addClass('header-scrolled')
-    } else {
-      $headerEl.removeClass('header-scrolled')
-    }
+    const shouldHeaderClassBePresent = scrollTop > 0
+    $headerEl.toggleClass('header-scrolled', shouldHeaderClassBePresent)
 
     // style bottom of form with box shadow if content overflow hidden underneath footer
-    if (scrollTop + innerHeight >= scrollHeight) {
-      $footerEl.removeClass('footer-scrolled')
-    } else {
-      $footerEl.addClass('footer-scrolled')
-    }
+    const shouldFooterClassBePresent = scrollTop + innerHeight < scrollHeight
+    $footerEl.toggleClass('footer-scrolled', shouldFooterClassBePresent)
   },
 
   /**
