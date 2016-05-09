@@ -10,6 +10,7 @@
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
 
 # ember-frost-modal-input
+A modal component that can contain any other components. Has classes to support a header, an input form and actions in the footer.
 
  * [Installation](#installation)
  * [API](#api)
@@ -30,7 +31,7 @@ ember install ember-frost-modal-input
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 
 ## Examples
-### Controller
+### Parent Controller
 Inject the modal-forms service into the parent controller
 ```js
 modalForms: Ember.inject.service('modal-forms'),
@@ -48,8 +49,8 @@ willDestroyElement () {
 }
 ```
 
-### Template
-Custom classes are applied to the parent template, based on state of the modal
+### Parent Component Template
+Custom classes can be applied to the modal template, based on state of the modal
 ```handlebars
 {{liquid-modal class=(if isModalActive 'form-container' '')}}
 ```

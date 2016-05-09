@@ -15,13 +15,25 @@
         </div>
         <div class="snippet">
           {{format-markdown "```handlebars
-{{#frost-button
-  size='medium'
-  priority='secondary'
-  text='Open form'
-  onClick=(action 'onClickHandler')}}
-{{/frost-button}}
-{{liquid-modal class=(if isModalActive 'form-container' '')}}
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+  {{frost-bunsen-form
+      model=model
+      view=view
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
+  <div class='actions'>
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  </div>
+{{/frost-modal-input}}
   ```"
           }}
         </div>
