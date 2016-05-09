@@ -10,6 +10,7 @@
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
 
 # ember-frost-modal-input
+A modal component that can contain any other components. Has classes to support a header, an input form and actions in the footer.
 
  * [Installation](#installation)
  * [API](#api)
@@ -30,8 +31,10 @@ ember install ember-frost-modal-input
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 
 ## Examples
-### Component
-Inject the modal-forms service into the parent component
+
+### Parent Controller
+Inject the modal-forms service into the parent controller
+
 ```js
 modalForms: Ember.inject.service('modal-forms'),
 isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
@@ -48,8 +51,8 @@ willDestroyElement () {
 }
 ```
 
-### Template
-Custom classes are applied to the parent template, based on state of the modal
+### Parent Component Template
+Custom classes can be applied to the modal template, based on state of the modal
 ```handlebars
 {{liquid-modal class=(if isModalActive 'form-container' '')}}
 ```
@@ -75,7 +78,7 @@ Styling includes:  box shadow plus slight transparency in header/footer to revea
 
 See [Demo](http://ciena-frost.github.io/ember-frost-modal-input)
 
-##### 1) Component with ember-perfectscroll
+##### 1) Parent Component with ember-perfectscroll
 Import AbstractModal into your parent component
 
 Extend your parent component from AbstractModal
@@ -137,7 +140,7 @@ export default AbstractModal.extend({
   }
 })
 ```
-##### 2) Template with ember-perfectscroll
+##### 2) Parent Component Template with ember-perfectscroll
 ###### a) Wrap container element with ember-perfectscroll helper
 ###### b) Footer element must have class 'actions'
 ###### c) Specify options for [ember-perfectscroll](https://www.npmjs.com/package/ember-perfectscroll) helper such as wheelSpeed, minScrollbarLength, etc.

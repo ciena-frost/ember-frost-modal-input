@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-modal-input",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/input-controls/modal-dialog-input",
   "directories": {
@@ -36,7 +36,7 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-frost-bunsen": "^3.1.0",
-    "ember-frost-core": ">=0.6.0 <2.0.0",
+    "ember-frost-core": ">=0.8.0 <2.0.0",
     "ember-load-initializers": "^0.5.0",
     "ember-perfectscroll": "0.1.2",
     "ember-lodash": "0.0.7",
@@ -45,9 +45,9 @@
     "ember-resolver": "^2.0.3",
     "ember-truth-helpers": "^1.2.0",
     "ember-try": "^0.2.0",
-    "eslint": "2.8.0",
-    "eslint-config-frost-standard": "2.0.0",
     "frost-guide-custom-routing": "0.0.2",
+    "eslint": "^2.9.0",
+    "eslint-config-frost-standard": "^2.0.0",
     "loader.js": "^4.0.0",
     "markdown-code-highlighting": "0.0.6"
   },
