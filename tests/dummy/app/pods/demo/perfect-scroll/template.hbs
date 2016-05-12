@@ -1,47 +1,47 @@
 <div class="section-title">Perfect Scroll frost-modal-input</div>
 <hr>
 <div class="section">
- <div class="example">
-     <div class="demo">
-       {{#frost-button
+  <div class="example">
+    <div class="demo">
+      {{#frost-button
          size='medium'
          priority='secondary'
          text='Open Modal with Perfect Scroll'
          onClick=(action 'onClickHandler')}}
-       {{/frost-button}}
-       {{liquid-modal class=(if isModalActive 'form-container' '')}}
-     </div>
-     <div class="snippet">
-       {{format-markdown "```handlebars
+      {{/frost-button}}
+      {{liquid-modal class=(if isModalActive 'form-container' '')}}
+    </div>
+    <div class="snippet">
+      {{format-markdown "```handlebars
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
 
 {{#perfect-scroll
- wheelSpeed=2
- minScrollbarLength=20
- maxScrollbarLength=150
+wheelSpeed=2
+minScrollbarLength=20
+maxScrollbarLength=150
 }}
 {{frost-bunsen-form
-   model=userModel
-   view=userView
-   onChange=(action 'formValueChanged')
-   onValidation=(action 'onValidation')}}
+model=userModel
+view=userView
+onChange=(action 'formValueChanged')
+onValidation=(action 'onValidation')}}
 {{/perfect-scroll}}
 
 <div class='actions'>
- {{frost-button
-   onClick=(action 'cancel')
-   size='medium'
-   text='Cancel'
-   priority='tertiary'}}
- {{frost-button
-   onClick=(action 'save')
-   size='medium'
-   text='Save'
-   priority='primary'}}
+{{frost-button
+onClick=(action 'cancel')
+size='medium'
+text='Cancel'
+priority='tertiary'}}
+{{frost-button
+onClick=(action 'save')
+size='medium'
+text='Save'
+priority='primary'}}
 </div>
 {{/frost-modal-input}}
-```"
-       }}
-     </div>
- </div>
+    ```"
+      }}
+    </div>
+  </div>
 </div>
