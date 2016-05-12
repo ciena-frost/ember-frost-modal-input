@@ -59,6 +59,7 @@ export default Component.extend({
     }
 
     if (this.isDestroyed || this.isDestroying) {
+      mutationObserver.disconnect()
       return
     }
 
