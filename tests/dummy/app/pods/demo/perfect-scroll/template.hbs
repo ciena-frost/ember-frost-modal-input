@@ -15,30 +15,32 @@
       {{format-markdown "```handlebars
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
 
-{{#perfect-scroll
-wheelSpeed=2
-minScrollbarLength=20
-maxScrollbarLength=150
-}}
-{{frost-bunsen-form
-model=userModel
-view=userView
-onChange=(action 'formValueChanged')
-onValidation=(action 'onValidation')}}
-{{/perfect-scroll}}
+  {{#perfect-scroll
+    wheelSpeed=2
+    minScrollbarLength=20
+    maxScrollbarLength=150}}
 
-<div class='actions'>
-{{frost-button
-onClick=(action 'cancel')
-size='medium'
-text='Cancel'
-priority='tertiary'}}
-{{frost-button
-onClick=(action 'save')
-size='medium'
-text='Save'
-priority='primary'}}
-</div>
+    {{frost-bunsen-form
+      model=userModel
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
+
+  {{/perfect-scroll}}
+
+  <div class='actions'>
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  </div>
+  
 {{/frost-modal-input}}
     ```"
       }}

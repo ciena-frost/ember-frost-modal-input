@@ -15,24 +15,25 @@
       {{format-markdown "```handlebars
 {{#frost-modal-input title='Test title' subtitle='Subtitle'}}
 
-{{frost-bunsen-form
-model=userModel
-view=userView
-onChange=(action 'formValueChanged')
-onValidation=(action 'onValidation')}}
+  {{frost-bunsen-form
+    model=userModel
+    view=userView
+    onChange=(action 'formValueChanged')
+    onValidation=(action 'onValidation')}}
 
-<div class='actions'>
-{{frost-button
-onClick=(action 'cancel')
-size='medium'
-text='Cancel'
-priority='tertiary'}}
-{{frost-button
-onClick=(action 'save')
-size='medium'
-text='Save'
-priority='primary'}}
-</div>
+  <div class='actions'>
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  </div>
+  
 {{/frost-modal-input}}
 ```"
       }}
