@@ -8,85 +8,88 @@ $action-bar-height: 80px;
 $modal-padding: 90px;
 $form-margin-top: 14px;
 $form-margin-bottom: 4px;
+$form-bkgrnd: rgba(0, 0, 0, 0);
+$modal-box-shadow: rgba(64, 64, 65, .5);
+$scroll-box-shadow: rgba(0, 0, 0, .25);
 
-.liquid-modal.form-container {
-  .lm-container {
-    align-items: center;
-    justify-content: center;
+.liquid-modal {
+  &.form-container {
+    .lm-container {
+      align-items: center;
+      justify-content: center;
 
-    > .frost-bunsen-form-dialog {
-      max-width: none;
-      padding: 0;
-      border: none;
-      background-color: rgba(0, 0, 0, 0);
+      > .frost-bunsen-form-dialog {
+        background-color: $form-bkgrnd;
+        border: 0;
+        max-width: none;
+        padding: 0;
+      }
     }
   }
 }
 
 .ps-container {
-    position: relative;
-    overflow: auto;
-    max-height: calc(100vh - #{$modal-padding});
-
-    padding: 0;
-
+  max-height: calc(100vh - #{$modal-padding});
+  overflow: auto;
+  padding: 0;
+  position: relative;
 
   .ps-scrollbar-y-rail {
-    margin-top: $info-bar-height + $info-bar-border-width;
     margin-bottom: $action-bar-height + $info-bar-border-width;
+    margin-top: $info-bar-height + $info-bar-border-width;
   }
 }
 
 .frost-modal-input {
+  background-color: $frost-color-white;
+  border: 0;
+  box-shadow: 0 0 20 $modal-box-shadow;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-height: calc(100vh - #{$modal-padding});
+  max-width: 550px;
+  overflow: hidden;
+  padding: 0;
   position: relative;
   width: 550px;
-  max-width: 550px;
-  max-height: calc(100vh - #{$modal-padding});
-  padding: 0;
-  background-color: $frost-color-white;
-  box-shadow: 0px 0px 20px rgba(64, 64, 65, 0.5);
-  border: none;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 
   .input-header {
-    position: absolute;
-    padding: $info-bar-padding-top-bottom $info-bar-padding-left-right;
-    top: 0;
+    border-bottom: $info-bar-border-width solid $frost-color-lgrey-1;
     height: $info-bar-height + $info-bar-border-width;
+    padding: $info-bar-padding-top-bottom $info-bar-padding-left-right;
+    position: absolute;
+    top: 0;
     width: 100%;
     z-index: 999;
-    border-bottom: $info-bar-border-width solid $frost-color-lgrey-1;
 
     &.header-scrolled {
-      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-      border-bottom: none;
+      border-bottom: 0;
+      box-shadow: 0 2px 3px $scroll-box-shadow;
+
       &:after {
-        content: '';
-        position: absolute;
-        height: $info-bar-height + $info-bar-border-width;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
         background: $frost-color-white;
+        bottom: 0;
+        content: '';
+        height: $info-bar-height + $info-bar-border-width;
+        left: 0;
+        opacity: .95;
+        position: absolute;
+        right: 0;
+        top: 0;
         z-index: -1;
-        opacity: 0.95;
       }
     }
 
     .primary-title {
-      padding-bottom: 3px;
-      // font-size: $frost-font-xl;
-      font-size: $frost-font-m;
       color: $frost-color-night-2;
+      font-size: $frost-font-m;
+      padding-bottom: 3px;
     }
 
     .sub-title {
-      font-size: $frost-font-s;
       color: $frost-color-grey-5;
+      font-size: $frost-font-s;
     }
   }
 
@@ -95,55 +98,60 @@ $form-margin-bottom: 4px;
   }
 
   .frost-bunsen-form {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      margin-top: $info-bar-height + $form-margin-top;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: $info-bar-height + $form-margin-top;
 
     .frost-fieldset {
       padding: 0 0 30px 30px;
     }
 
-    .frost-field .input {
-      width: 250px;
-    }
+    .frost-field {
+      .input {
+        width: 250px;
+      }
 
-    .frost-field.textarea .input {
-      height: 70px;
+      &.textarea {
+        .input {
+          height: 70px;
+        }
+      }
     }
   }
 
   .actions {
-    display: flex;
-    justify-content: flex-end;
-    position: absolute;
+    align-items: center;
+    border-top: 1px solid $frost-color-lgrey-1;
     bottom: 0;
-    width: 100%;
+    display: flex;
     height: $action-bar-height + $action-bar-border-width;
+    justify-content: flex-end;
     margin-top: 20px;
     padding-right: 30px;
-    border-top: 1px solid $frost-color-lgrey-1;
-    align-items: center;
+    position: absolute;
+    width: 100%;
     z-index: 999;
 
     > .frost-button {
-      width: 150px;
       margin-left: 10px;
+      width: 150px;
     }
 
     &.footer-scrolled {
-      box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.25);
-      border-top: none;
+      border-top: 0;
+      box-shadow: 0 -2px 3px $scroll-box-shadow;
+
       &:after {
-        content: '';
-        position: absolute;
-        height: $action-bar-height + $action-bar-border-width;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
         background: $frost-color-white;
-        opacity: 0.95;
+        bottom: 0;
+        content: '';
+        height: $action-bar-height + $action-bar-border-width;
+        left: 0;
+        opacity: .95;
+        position: absolute;
+        right: 0;
+        top: 0;
         z-index: -1;
       }
     }

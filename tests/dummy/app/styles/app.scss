@@ -3,57 +3,60 @@
 .dummy-body {
   padding: 10px;
 
-  .frost-link.small {
+  .frost-link {
+    &.small {
       margin: 0 15px 30px 0;
+    }
+  }
+
+  &.section {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    padding-left: 10px;
+    width: calc(100vw - 250px);
+
+    > .title {
+      font-size: $frost-font-xl;
+      padding-bottom: 20px;
+    }
+
+    .example {
+      padding-bottom: 10px;
+      padding-right: 25px;
+
+      > .title {
+        font-size: $frost-font-l;
+        padding-bottom: 15px;
+      }
+
+      .snippet {
+        display: inline-block;
+        font-size: $frost-font-s;
+        margin-right: 20px;
+        vertical-align: top;
+      }
+
+      .demo {
+        display: block;
+        vertical-align: top;
+
+        > .frost-icon {
+          height: 40px;
+          margin-bottom: 20px;
+          width: 40px;
+        }
+      }
+    }
   }
 }
 
 .dummy-notification-container {
-  position: fixed;
-  top: 60px;
-  right: 10px;
-  z-index: 999;
-  width: 80%;
-  max-width: 400px;
   margin: auto;
-}
-
-.dummy-body .section {
-  display: flex;
-  flex-direction: row;
-  flex-flow: wrap;
-  width: calc(100vw - 250px);
-  padding-left: 10px;
-
-  > .title {
-    font-size: $frost-font-xl;
-    padding-bottom: 20px;
-  }
-
-  .example {
-    padding-right: 25px;
-    padding-bottom: 10px;
-
-    > .title {
-      font-size: $frost-font-l;
-      padding-bottom: 15px;
-    }
-
-    .snippet {
-      display: inline-block;
-      font-size: $frost-font-s;
-      margin-right: 20px;
-      vertical-align: top;
-    }
-
-    .demo {
-      display: block;
-      vertical-align: top;
-      > .frost-icon {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 20px;
-      }
-    }
-  }
+  max-width: 400px;
+  position: fixed;
+  right: 10px;
+  top: 60px;
+  width: 80%;
+  z-index: 999;
 }
