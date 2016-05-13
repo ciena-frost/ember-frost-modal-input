@@ -31,8 +31,10 @@ ember install ember-frost-modal-input
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 
 ## Examples
+
 ### Parent Controller
 Inject the modal-forms service into the parent controller
+
 ```js
 modalForms: Ember.inject.service('modal-forms'),
 isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
@@ -68,7 +70,114 @@ Custom classes can be applied to the modal template, based on state of the modal
   // Custom modal content
 {{/frost-modal-input}}
 ```
+### Steps to include ember-perfectscroll
 
+This will give you styling of header/footer when content is scrolled underneath either element
+
+Styling includes:  box shadow plus slight transparency in header/footer to reveal content underneath
+
+See [Demo](http://ciena-frost.github.io/ember-frost-modal-input)
+
+##### 1) Parent Component with ember-perfectscroll
+Import AbstractModal into your parent component
+
+Extend your parent component from AbstractModal
+
+Below is an example of component.js
+```js
+import layout from './template'
+import {AbstractModal} from 'ember-frost-modal-input'
+const {inject} = Ember
+
+export default AbstractModal.extend({
+  layout,
+  modalForms: inject.service('modal-forms'),
+  userModel: {},
+
+  /* Ember.Component method */
+  willInsertElement () {
+    this.get('modalForms').setModalActive(true)
+  },
+
+  /* Ember.Component method */
+  willDestroyElement () {
+    this.get('modalForms').setModalActive(false)
+  },
+
+  formData: {
+    state: {},
+    isValid: false
+  },
+
+  clearForm () {
+    this.set('formData', {
+      state: {},
+      isValid: false
+    })
+  },
+
+  actions: {
+    cancel () {
+      this.clearForm()
+      this.sendAction('dismiss')
+    },
+
+    formValueChanged (formState) {
+      this.set('formData.state', formState)
+    },
+
+    onValidation (info) {
+      this.set('formData.isValid', info.valid)
+    },
+
+    save () {
+      if (this.get('formData.isValid')) {
+        this.sendAction('save', this.get('formData.state'))
+        this.sendAction('dismiss')
+        this.clearForm()
+      }
+    }
+  }
+})
+```
+##### 2) Parent Component Template with ember-perfectscroll
+###### a) Wrap container element with ember-perfectscroll helper
+###### b) Footer element must have class 'actions'
+###### c) Specify options for [ember-perfectscroll](https://www.npmjs.com/package/ember-perfectscroll) helper such as wheelSpeed, minScrollbarLength, etc.
+
+For more documentation on options: ember-perfectscroll uses [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar)
+
+Below is an example of template.hbs
+```handlebars
+{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
+{{!#frost-modal-input titleComponent='myTitle'}}
+
+  {{#perfect-scroll
+    wheelSpeed=2
+    minScrollbarLength=20
+    maxScrollbarLength=150
+  }}
+  {{frost-bunsen-form
+      model=userModel
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
+  {{/perfect-scroll}}
+
+  <div class='actions'>
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  </div>
+{{/frost-modal-input}}
+```
 ## Development
 ### Setup
 ```

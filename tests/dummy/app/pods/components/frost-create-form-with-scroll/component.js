@@ -1,20 +1,57 @@
 import Ember from 'ember'
 import layout from './template'
-const {inject, Component} = Ember
+import {AbstractModal} from 'ember-frost-modal-input'
+const {inject} = Ember
 
-export default Component.extend({
+export default AbstractModal.extend({
   layout,
   modalForms: inject.service('modal-forms'),
   userModel: {
     'type': 'object',
     'properties': {
-      'username': {
+      'username1': {
         'type': 'string'
       },
-      'description': {
+      'description1': {
         'type': 'string'
       },
-      'password': {
+      'password1': {
+        'type': 'string'
+      },
+      'username2': {
+        'type': 'string'
+      },
+      'description2': {
+        'type': 'string'
+      },
+      'password2': {
+        'type': 'string'
+      },
+      'username3': {
+        'type': 'string'
+      },
+      'description3': {
+        'type': 'string'
+      },
+      'password3': {
+        'type': 'string'
+      },
+      'username4': {
+        'type': 'string'
+      },
+      'description4': {
+        'type': 'string'
+      },
+      'password4': {
+        'type': 'string'
+      },
+      'username5': {
+        'type': 'string'
+      },
+      'description5': {
+        'type': 'string'
+      },
+      'password5': {
         'type': 'string'
       }
     },
