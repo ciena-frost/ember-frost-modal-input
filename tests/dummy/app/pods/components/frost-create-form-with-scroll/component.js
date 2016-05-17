@@ -90,11 +90,11 @@ export default AbstractModal.extend({
     },
 
     onValidation (e) {
-      this.set('isValid', e.errors.length == 0)
+      this.set('isValid', e.errors.length === 0)
     },
 
     save () {
-      this.sendAction('save', this.get('formValue'))
+      this.get('onConfirm')(this.get('formValue'))
       this.closeModal()
       this.clearForm()
     }

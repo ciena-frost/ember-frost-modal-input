@@ -57,7 +57,7 @@ export default Component.extend({
     },
 
     save () {
-      this.sendAction('save', this.get('userValue'))
+      this.get('onConfirm')(this.get('userValue'))
       this.clearForm()
       this.closeModal()
     }

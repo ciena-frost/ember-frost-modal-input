@@ -8,7 +8,6 @@ export default Controller.extend({
   isModalActive: computed.readOnly('modalForms.isModalActive'),
   actions: {
     save (attrs) {
-      debugger
       this.notifications.addNotification({
         message: 'Submission success',
         type: 'success',

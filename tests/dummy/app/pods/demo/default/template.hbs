@@ -9,7 +9,8 @@
         openButton='Open default modal'
         openButtonClasses='medium secondary'
         modalName='my-awesome-modal'}}
-        {{frost-create-form}}
+        {{frost-create-form
+          onConfirm=(action 'save')}}
       {{/frost-modal-input}}
     </div>
     <div class="snippet">
