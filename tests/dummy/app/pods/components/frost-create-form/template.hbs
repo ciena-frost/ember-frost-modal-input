@@ -1,9 +1,10 @@
 {{frost-bunsen-form
-    model=userModel
-    value=formValue
-    view=userView
-    onChange=(action 'formValueChanged')
-    onValidation=(action 'onValidation')}}
+  bunsenId='userForm'
+  model=userModel
+  value=userValue
+  view=userView
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')}}
 <div class='actions'>
   {{frost-button
     size='medium'

@@ -7,7 +7,7 @@ export default Component.extend({
   modalForms: inject.service('modal-forms'),
 
   layout,
-  formValue: {},
+  userValue: {},
   userModel: {
     'type': 'object',
     'properties': {
@@ -27,7 +27,7 @@ export default Component.extend({
   },
 
   clearForm () {
-    this.set('formValue', {})
+    this.set('userValue', {})
   },
   closeModal() {
     this.get('remodal').close('my-awesome-modal');
@@ -49,18 +49,17 @@ export default Component.extend({
     },
 
     formValueChanged (formState) {
-      this.set('formValue', formState)
+      this.set('userValue', formState)
     },
 
     onValidation (e) {
-      this.set('isValid', e.errors.length == 0)
+      this.set('isValid', e.errors.length === 0)
     },
 
     save () {
-      debugger
-      this.sendAction('save', this.get('formValue'))
-      this.closeModal()
+      this.sendAction('save', this.get('userValue'))
       this.clearForm()
+      this.closeModal()
     }
   }
 })
