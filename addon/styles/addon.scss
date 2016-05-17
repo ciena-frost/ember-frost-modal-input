@@ -12,21 +12,7 @@ $form-bkgrnd: rgba(0, 0, 0, 0);
 $modal-box-shadow: rgba(64, 64, 65, .5);
 $scroll-box-shadow: rgba(0, 0, 0, .25);
 
-.liquid-modal {
-  &.form-container {
-    .lm-container {
-      align-items: center;
-      justify-content: center;
 
-      > .frost-bunsen-form-dialog {
-        background-color: $form-bkgrnd;
-        border: 0;
-        max-width: none;
-        padding: 0;
-      }
-    }
-  }
-}
 
 .ps-container {
   max-height: calc(100vh - #{$modal-padding});
@@ -39,121 +25,136 @@ $scroll-box-shadow: rgba(0, 0, 0, .25);
     margin-top: $info-bar-height + $info-bar-border-width;
   }
 }
-
-.frost-modal-input {
-  background-color: $frost-color-white;
-  border: 0;
-  box-shadow: 0 0 20 $modal-box-shadow;
+.remodal-wrapper {
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  max-height: calc(100vh - #{$modal-padding});
-  max-width: 550px;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-  width: 550px;
+  align-items: center;
+  justify-content: center;
 
-  .input-header {
-    border-bottom: $info-bar-border-width solid $frost-color-lgrey-1;
-    height: $info-bar-height + $info-bar-border-width;
-    padding: $info-bar-padding-top-bottom $info-bar-padding-left-right;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-
-    &.header-scrolled {
-      border-bottom: 0;
-      box-shadow: 0 2px 3px $scroll-box-shadow;
-
-      &:after {
-        background: $frost-color-white;
-        bottom: 0;
-        content: '';
-        height: $info-bar-height + $info-bar-border-width;
-        left: 0;
-        opacity: .95;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: -1;
-      }
-    }
-
-    .primary-title {
-      color: $frost-color-night-2;
-      font-size: $frost-font-m;
-      padding-bottom: 3px;
-    }
-
-    .sub-title {
-      color: $frost-color-grey-5;
-      font-size: $frost-font-s;
-    }
-  }
-
-  .frost-bunsen-container {
-    margin-bottom: $action-bar-height + $form-margin-bottom;
-  }
-
-  .frost-bunsen-form {
+  .ember-remodal.window {
+    background-color: $frost-color-white;
+    border: 0;
+    box-shadow: 0 0 20 $modal-box-shadow;
     display: flex;
     flex: 1;
     flex-direction: column;
-    margin-top: $info-bar-height + $form-margin-top;
+    max-height: calc(100vh - #{$modal-padding});
+    max-width: 550px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 550px;
 
-    .frost-fieldset {
-      padding: 0 0 30px 30px;
-    }
+    .ember-remodal.yielded.content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
 
-    .frost-field {
-      .input {
-        width: 250px;
-      }
+      .input-header {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        border-bottom: $info-bar-border-width solid $frost-color-lgrey-1;
+        height: $info-bar-height + $info-bar-border-width;
+        padding: $info-bar-padding-top-bottom $info-bar-padding-left-right;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 999;
 
-      &.textarea {
-        .input {
-          height: 70px;
+        &.header-scrolled {
+          border-bottom: 0;
+          box-shadow: 0 2px 3px $scroll-box-shadow;
+
+          &:after {
+            background: $frost-color-white;
+            bottom: 0;
+            content: '';
+            height: $info-bar-height + $info-bar-border-width;
+            left: 0;
+            opacity: .95;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+          }
+        }
+
+        .primary-title {
+          color: $frost-color-night-2;
+          font-size: $frost-font-m;
+          padding-bottom: 3px;
+        }
+
+        .sub-title {
+          color: $frost-color-grey-5;
+          font-size: $frost-font-s;
         }
       }
-    }
-  }
 
-  .actions {
-    align-items: center;
-    border-top: 1px solid $frost-color-lgrey-1;
-    bottom: 0;
-    display: flex;
-    height: $action-bar-height + $action-bar-border-width;
-    justify-content: flex-end;
-    margin-top: 20px;
-    padding-right: 30px;
-    position: absolute;
-    width: 100%;
-    z-index: 999;
-
-    > .frost-button {
-      margin-left: 10px;
-      width: 150px;
-    }
-
-    &.footer-scrolled {
-      border-top: 0;
-      box-shadow: 0 -2px 3px $scroll-box-shadow;
-
-      &:after {
-        background: $frost-color-white;
-        bottom: 0;
-        content: '';
-        height: $action-bar-height + $action-bar-border-width;
-        left: 0;
-        opacity: .95;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: -1;
+      .frost-bunsen-container {
+        margin-bottom: $action-bar-height + $form-margin-bottom;
       }
+
+      .frost-bunsen-form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin-top: $info-bar-height + $form-margin-top;
+
+        .frost-fieldset {
+          padding: 0 0 30px 30px;
+        }
+
+        .frost-field {
+          .input {
+            width: 250px;
+          }
+
+          &.textarea {
+            .input {
+              height: 70px;
+            }
+          }
+        }
+      }
+
+      .actions {
+        align-items: center;
+        border-top: 1px solid $frost-color-lgrey-1;
+        bottom: 0;
+        display: flex;
+        height: $action-bar-height + $action-bar-border-width;
+        justify-content: flex-end;
+        margin-top: 20px;
+        padding-right: 30px;
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+
+        > .frost-button {
+          margin-left: 10px;
+          width: 150px;
+        }
+
+        &.footer-scrolled {
+          border-top: 0;
+          box-shadow: 0 -2px 3px $scroll-box-shadow;
+
+          &:after {
+            background: $frost-color-white;
+            bottom: 0;
+            content: '';
+            height: $action-bar-height + $action-bar-border-width;
+            left: 0;
+            opacity: .95;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+          }
+        }
+      }
+
     }
   }
 }

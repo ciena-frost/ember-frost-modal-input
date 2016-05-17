@@ -1,11 +1,21 @@
-{{#if titleComponent}}
-  {{component titleComponent}}
-{{else}}
-  <div class="input-header">
-    <div class="primary-title">{{title}}</div>
-    {{#if subtitle}}
-      <div class="sub-title">{{subtitle}}</div>
-    {{/if}}
-  </div>
-{{/if}}
-{{yield}}
+{{#ember-remodal
+  buttonClasses='frost-button'
+  forService=forService
+  openButton=openButton
+  openButtonClasses=openButtonClasses
+  closeOnOutsideClick=false
+  closeOnEscape=false
+  disableNativeClose=true
+  name=modalName as |modal|}}
+  {{#if titleComponent}}
+    {{component titleComponent}}
+  {{else}}
+    <div class="input-header">
+      <div class="primary-title">{{title}}</div>
+      {{#if subtitle}}
+        <div class="sub-title">{{subtitle}}</div>
+      {{/if}}
+    </div>
+  {{/if}}
+  {{yield}}
+{{/ember-remodal}}

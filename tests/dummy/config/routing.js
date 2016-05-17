@@ -39,6 +39,15 @@ module.exports = [
           save: 'save'
         }
       }
+    },
+    {
+      id: 'remodal',
+      alias: 'Using Remodal',
+      type: 'route',
+      route: 'demo.remodal',
+      path: {
+        path: '/remodal'
+      }
     }]
   }
 ]

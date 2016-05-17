@@ -1,14 +1,14 @@
 export default function () {
   this.transition(
-    this.inHelper('liquid-modal'),
+    this.inHelper('ember-remodal'),
     this.toModal(/(?:-edit|-create)/),
     this.use('explode', {
-      pick: '.lf-overlay',
+      pick: '.remodal-overlay',
       use: ['cross-fade', {
         maxOpacity: 0.5
       }]
     }, {
-      pick: '.lm-container',
+      pick: '.ember-remodal.window',
       use: ['toDown']
     })
   )
@@ -23,5 +23,17 @@ export default function () {
       pick: '.lm-container',
       use: ['toUp']
     })
+  )
+  this.transition(
+    this.hasClass('remodal-overlay'),
+    this.use('toDown'),
+     this.debug()
+    // this.use('explode', {
+    //   pick: '.lf-overlay',
+    //   use: ['cross-fade']
+    // }, {
+    //   pick: '.lm-container',
+    //   use: ['toUp']
+    // })
   )
 }
