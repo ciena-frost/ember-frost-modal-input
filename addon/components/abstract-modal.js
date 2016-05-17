@@ -35,7 +35,7 @@ export default Component.extend({
 
     // configuration of the observer
     const config = { attributes: false, childList: true, characterData: false, subtree: true }
-
+debugger
     // pass in the target DOM node, as well as the observer options
     mutationObserver.observe(this.get('$containerEl').get(0), config)
 

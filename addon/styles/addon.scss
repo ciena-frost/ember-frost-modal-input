@@ -13,7 +13,6 @@ $modal-box-shadow: rgba(64, 64, 65, .5);
 $scroll-box-shadow: rgba(0, 0, 0, .25);
 
 
-
 .ps-container {
   max-height: calc(100vh - #{$modal-padding});
   overflow: auto;
@@ -25,6 +24,16 @@ $scroll-box-shadow: rgba(0, 0, 0, .25);
     margin-top: $info-bar-height + $info-bar-border-width;
   }
 }
+.remodal.remodal-is-opening {
+  animation-name: remodal-to-down;
+  animation-duration: 0.5s;
+
+}
+.remodal.remodal-is-closing {
+  animation-name: remodal-to-up;
+  animation-duration: 0.5s;
+}
+
 .remodal-wrapper {
   display: flex;
   align-items: center;
@@ -156,5 +165,26 @@ $scroll-box-shadow: rgba(0, 0, 0, .25);
       }
 
     }
+  }
+}
+
+/* Keyframes
+   ========================================================================== */
+
+@keyframes remodal-to-down {
+  from {
+    transform: translateY(-200%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes remodal-to-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-200%);
   }
 }

@@ -3,18 +3,25 @@
 <div class="section">
   <div class="example">
     <div class="demo">
-      {{#frost-button
-         size='medium'
-         priority='secondary'
-         text='Open Modal with Perfect Scroll'
-         onClick=(action 'onClickHandler')}}
-      {{/frost-button}}
-      {{liquid-modal class=(if isModalActive 'form-container' '')}}
+      {{#frost-modal-input
+        title='Test title'
+        subtitle='Subtitle'
+        openButton='Open Modal with Perfect Scroll'
+        openButtonClasses='medium secondary'
+        modalName='my-ps-modal'}}
+        {{frost-create-form-with-scroll}}
+      {{/frost-modal-input}}
+
+      {{!-- {{liquid-modal class=(if isModalActive 'form-container' '')}} --}}
     </div>
     <div class="snippet">
       {{format-markdown "```handlebars
-{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
-
+{{#frost-modal-input
+  title='Test title'
+  subtitle='Subtitle'
+  openButton='Open Modal with Perfect Scroll'
+  openButtonClasses='medium secondary'
+  modalName='my-ps-modal'}}
   {{#perfect-scroll
     wheelSpeed=2
     minScrollbarLength=20
@@ -40,7 +47,7 @@
       text='Save'
       priority='primary'}}
   </div>
-  
+
 {{/frost-modal-input}}
     ```"
       }}

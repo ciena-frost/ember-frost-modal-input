@@ -57,6 +57,7 @@ export default Component.extend({
     },
 
     save () {
+      debugger
       this.sendAction('save', this.get('formValue'))
       this.closeModal()
       this.clearForm()

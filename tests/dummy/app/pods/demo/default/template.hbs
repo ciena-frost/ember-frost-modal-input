@@ -3,39 +3,44 @@
 <div class="section">
   <div class="example">
     <div class="demo">
-      {{#frost-button
-       size='medium'
-       priority='secondary'
-       text='Open Default Modal'
-       onClick=(action 'onClickHandler')}}
-      {{/frost-button}}
-      {{liquid-modal class=(if isModalActive 'form-container' '')}}
+      {{#frost-modal-input
+        title='Test title'
+        subtitle='Subtitle'
+        openButton='Open default modal'
+        openButtonClasses='medium secondary'
+        modalName='my-awesome-modal'}}
+        {{frost-create-form}}
+      {{/frost-modal-input}}
     </div>
     <div class="snippet">
       {{format-markdown "```handlebars
-{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
-
+{{#frost-modal-input
+  title='Test title'
+  subtitle='Subtitle'
+  openButton='Open default modal'
+  openButtonClasses='medium secondary'
+  modalName='my-awesome-modal'}}
   {{frost-bunsen-form
-    model=userModel
-    view=userView
-    onChange=(action 'formValueChanged')
-    onValidation=(action 'onValidation')}}
+  model=userModel
+  view=userView
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')}}
 
-  <div class='actions'>
-    {{frost-button
-      onClick=(action 'cancel')
-      size='medium'
-      text='Cancel'
-      priority='tertiary'}}
-    {{frost-button
-      onClick=(action 'save')
-      size='medium'
-      text='Save'
-      priority='primary'}}
-  </div>
-  
+<div class='actions'>
+{{frost-button
+  onClick=(action 'cancel')
+  size='medium'
+  text='Cancel'
+  priority='tertiary'}}
+{{frost-button
+  onClick=(action 'save')
+  size='medium'
+  text='Save'
+  priority='primary'}}
+</div>
+
 {{/frost-modal-input}}
-```"
+    ```"
       }}
     </div>
   </div>

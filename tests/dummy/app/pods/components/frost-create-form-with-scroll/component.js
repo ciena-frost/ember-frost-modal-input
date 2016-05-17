@@ -4,8 +4,11 @@ import {AbstractModal} from 'ember-frost-modal-input'
 const {inject} = Ember
 
 export default AbstractModal.extend({
-  layout,
+  remodal: inject.service(),
   modalForms: inject.service('modal-forms'),
+
+  layout,
+  formValue: {},
   userModel: {
     'type': 'object',
     'properties': {
@@ -60,6 +63,12 @@ export default AbstractModal.extend({
     ]
   },
 
+  clearForm () {
+    this.set('formValue', {})
+  },
+  closeModal() {
+    this.get('remodal').close('my-ps-modal');
+  },
   /* Ember.Component method */
   willInsertElement () {
     this.get('modalForms').setModalActive(true)
@@ -70,38 +79,24 @@ export default AbstractModal.extend({
     this.get('modalForms').setModalActive(false)
   },
 
-  formData: {
-    state: {},
-    isValid: false
-  },
-
-  clearForm () {
-    this.set('formData', {
-      state: {},
-      isValid: false
-    })
-  },
-
   actions: {
     cancel () {
       this.clearForm()
-      this.sendAction('dismiss')
+      this.closeModal()
     },
 
     formValueChanged (formState) {
-      this.set('formData.state', formState)
+      this.set('formValue', formState)
     },
 
-    onValidation (info) {
-      this.set('formData.isValid', info.valid)
+    onValidation (e) {
+      this.set('isValid', e.errors.length == 0)
     },
 
     save () {
-      if (this.get('formData.isValid')) {
-        this.sendAction('save', this.get('formData.state'))
-        this.sendAction('dismiss')
-        this.clearForm()
-      }
+      this.sendAction('save', this.get('formValue'))
+      this.closeModal()
+      this.clearForm()
     }
   }
 })

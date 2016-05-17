@@ -14,14 +14,6 @@ module.exports = [
       route: 'demo.default',
       path: {
         path: '/default'
-      },
-      modalName: 'frost-create-form',
-      modal: {
-        withParams: 'showModalForm',
-        dialogClass: 'frost-bunsen-form-dialog',
-        actions: {
-          save: 'save'
-        }
       }
     }, {
       id: 'perfect-scroll',
@@ -38,15 +30,6 @@ module.exports = [
         actions: {
           save: 'save'
         }
-      }
-    },
-    {
-      id: 'remodal',
-      alias: 'Using Remodal',
-      type: 'route',
-      route: 'demo.remodal',
-      path: {
-        path: '/remodal'
       }
     }]
   }

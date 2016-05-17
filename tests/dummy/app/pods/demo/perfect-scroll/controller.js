@@ -3,7 +3,6 @@ import Ember from 'ember'
 const { Controller, computed, inject } = Ember
 
 export default Controller.extend({
-  showModalForm: false,
   isModalActive: computed.readOnly('modalForms.isModalActive'),
   modalForms: inject.service('modal-forms'),
   actions: {
@@ -15,10 +14,6 @@ export default Controller.extend({
         duration: 1500
       })
       console.log(attrs)
-    },
-
-    onClickHandler () {
-      this.set('showModalForm', true)
     }
   }
 })

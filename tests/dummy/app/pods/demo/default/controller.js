@@ -1,13 +1,14 @@
-import Ember from 'ember'
+import Ember from 'ember';
 
-const { Controller, computed, inject } = Ember
+const {Controller, inject, computed} = Ember
 
 export default Controller.extend({
-  showModalForm: false,
-  isModalActive: computed.readOnly('modalForms.isModalActive'),
   modalForms: inject.service('modal-forms'),
+
+  isModalActive: computed.readOnly('modalForms.isModalActive'),
   actions: {
     save (attrs) {
+      debugger
       this.notifications.addNotification({
         message: 'Submission success',
         type: 'success',
@@ -15,11 +16,6 @@ export default Controller.extend({
         duration: 1500
       })
       console.log(attrs)
-    },
-
-    onClickHandler () {
-      this.set('showModalForm', true)
     }
   }
-
-})
+});
