@@ -7,6 +7,7 @@ export default Component.extend({
   modalForms: inject.service('modal-forms'),
 
   layout,
+  modalName: 'my-awesome-modal',
   userValue: {},
   userModel: {
     'type': 'object',
@@ -30,7 +31,7 @@ export default Component.extend({
     this.set('userValue', {})
   },
   closeModal () {
-    this.get('remodal').close('my-awesome-modal')
+    this.get('remodal').close(this.get('modalName'))
   },
   /* Ember.Component method */
   willInsertElement () {

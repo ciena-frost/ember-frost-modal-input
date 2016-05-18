@@ -1,8 +1,9 @@
 import Ember from 'ember'
 import layout from '../templates/components/frost-modal-input'
+import AbstractModal from './abstract-modal'
 
-const {Component} = Ember
+// const {Component} = Ember
 
-export default Component.extend({
+export default AbstractModal.extend({
   layout
 })

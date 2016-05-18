@@ -19,7 +19,12 @@
   {{/if}}
   {{yield}}
   {{#yield-slot 'form'}}
-    {{yield}}
+    {{#perfect-scroll
+      wheelSpeed=2
+      minScrollbarLength=20
+      maxScrollbarLength=150}}
+      {{yield}}
+    {{/perfect-scroll}}
   {{/yield-slot}}
 
   {{#yield-slot 'actions'}}

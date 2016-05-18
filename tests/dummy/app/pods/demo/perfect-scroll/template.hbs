@@ -3,42 +3,12 @@
 <div class="section">
   <div class="example">
     <div class="demo">
-      {{frost-create-form-with-scroll
+      {{frost-create-long-form
         onConfirm=(action 'save')}}
     </div>
     <div class="snippet">
       {{format-markdown "```handlebars
-{{#frost-modal-input
-  title='Test title'
-  subtitle='Subtitle'
-  openButton='Open Modal with Perfect Scroll'
-  openButtonClasses='medium secondary'
-  modalName='my-ps-modal'}}
-  {{#block-slot slot 'form'}}
-    {{#perfect-scroll
-    wheelSpeed=2
-    minScrollbarLength=20
-    maxScrollbarLength=150}}
-      {{frost-bunsen-form
-          model=userModel
-          view=userView
-          onChange=(action 'formValueChanged')
-          onValidation=(action 'onValidation')}}
-    {{/perfect-scroll}}
-  {{/block-slot}}
-  {{#block-slot slot 'actions'}}
-    {{frost-button
-      onClick=(action 'cancel')
-      size='medium'
-      text='Cancel'
-      priority='tertiary'}}
-    {{frost-button
-      onClick=(action 'save')
-      size='medium'
-      text='Save'
-      priority='primary'}}
-  {{/block-slot}}
-{{/frost-modal-input}}
+
     ```"
       }}
     </div>

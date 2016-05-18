@@ -9,6 +9,7 @@ export default AbstractModal.extend({
 
   layout,
   formValue: {},
+  modalName: 'my-ps-modal',
   userModel: {
     'type': 'object',
     'properties': {
@@ -67,7 +68,7 @@ export default AbstractModal.extend({
     this.set('formValue', {})
   },
   closeModal () {
-    this.get('remodal').close('my-ps-modal')
+    this.get('remodal').close(this.get('modalName'))
   },
   /* Ember.Component method */
   willInsertElement () {

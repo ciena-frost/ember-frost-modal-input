@@ -3,18 +3,13 @@
   subtitle='Subtitle'
   openButton='Open Modal with Perfect Scroll'
   openButtonClasses='medium secondary'
-  modalName='my-ps-modal'}}
+  modalName=modalName}}
   {{#block-slot slot 'form'}}
-    {{#perfect-scroll
-    wheelSpeed=2
-    minScrollbarLength=20
-    maxScrollbarLength=150}}
-      {{frost-bunsen-form
-          model=userModel
-          view=userView
-          onChange=(action 'formValueChanged')
-          onValidation=(action 'onValidation')}}
-    {{/perfect-scroll}}
+    {{frost-bunsen-form
+      model=userModel
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
   {{/block-slot}}
   {{#block-slot slot 'actions'}}
     {{frost-button

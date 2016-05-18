@@ -3,15 +3,15 @@
   subtitle='Subtitle'
   openButton='Open default modal'
   openButtonClasses='medium secondary'
-  modalName='my-awesome-modal' as |slot|}}
+  modalName=modalName as |slot|}}
   {{#block-slot slot 'form'}}
     {{frost-bunsen-form
-    bunsenId='userForm'
-    model=userModel
-    value=userValue
-    view=userView
-    onChange=(action 'formValueChanged')
-    onValidation=(action 'onValidation')}}
+      bunsenId='userForm'
+      model=userModel
+      value=userValue
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
   {{/block-slot}}
   {{#block-slot slot 'actions'}}
     {{frost-button

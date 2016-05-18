@@ -11,7 +11,9 @@ module.exports = {
   afterInstall: function () {
     return this.addAddonsToProject({
       packages: [
-        {name: 'ember-frost-core', target: '>=0.0.14 <2.0.0'}
+        {name: 'ember-frost-core', target: '>=0.0.14 <2.0.0'},
+        {name: 'ember-perfectscroll', target: '^0.1.2'}
+
       ]
     })
   }
