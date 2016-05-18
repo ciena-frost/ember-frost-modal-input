@@ -3,14 +3,8 @@
 <div class="section">
   <div class="example">
     <div class="demo">
-      {{#frost-modal-input
-        title='Test title'
-        subtitle='Subtitle'
-        openButton='Open Modal with Perfect Scroll'
-        openButtonClasses='medium secondary'
-        modalName='my-ps-modal'}}
-        {{frost-create-form-with-scroll onConfirm=(action 'save')}}
-      {{/frost-modal-input}}
+      {{frost-create-form-with-scroll
+        onConfirm=(action 'save')}}
     </div>
     <div class="snippet">
       {{format-markdown "```handlebars
@@ -20,20 +14,19 @@
   openButton='Open Modal with Perfect Scroll'
   openButtonClasses='medium secondary'
   modalName='my-ps-modal'}}
-  {{#perfect-scroll
+  {{#block-slot slot 'form'}}
+    {{#perfect-scroll
     wheelSpeed=2
     minScrollbarLength=20
     maxScrollbarLength=150}}
-
-    {{frost-bunsen-form
-      model=userModel
-      view=userView
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')}}
-
-  {{/perfect-scroll}}
-
-  <div class='actions'>
+      {{frost-bunsen-form
+          model=userModel
+          view=userView
+          onChange=(action 'formValueChanged')
+          onValidation=(action 'onValidation')}}
+    {{/perfect-scroll}}
+  {{/block-slot}}
+  {{#block-slot slot 'actions'}}
     {{frost-button
       onClick=(action 'cancel')
       size='medium'
@@ -44,8 +37,7 @@
       size='medium'
       text='Save'
       priority='primary'}}
-  </div>
-
+  {{/block-slot}}
 {{/frost-modal-input}}
     ```"
       }}

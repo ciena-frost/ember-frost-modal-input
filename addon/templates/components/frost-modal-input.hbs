@@ -18,4 +18,13 @@
     </div>
   {{/if}}
   {{yield}}
+  {{#yield-slot 'form'}}
+    {{yield}}
+  {{/yield-slot}}
+
+  {{#yield-slot 'actions'}}
+    <div class='actions'>
+      {{yield}}
+    </div>
+  {{/yield-slot}}
 {{/ember-remodal}}

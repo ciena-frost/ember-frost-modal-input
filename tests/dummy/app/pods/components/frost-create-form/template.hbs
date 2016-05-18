@@ -1,22 +1,31 @@
-{{frost-bunsen-form
-  bunsenId='userForm'
-  model=userModel
-  value=userValue
-  view=userView
-  onChange=(action 'formValueChanged')
-  onValidation=(action 'onValidation')}}
-<div class='actions'>
-  {{frost-button
-    size='medium'
-    text='Cancel'
-    priority='tertiary'
-    onClick=(action 'cancel')
-  }}
-  {{frost-button
-    disabled=(not isValid)
-    size='medium'
-    text='Save'
-    priority='primary'
-    onClick=(action 'save')
-  }}
-</div>
+{{#frost-modal-input
+  title='Test title'
+  subtitle='Subtitle'
+  openButton='Open default modal'
+  openButtonClasses='medium secondary'
+  modalName='my-awesome-modal' as |slot|}}
+  {{#block-slot slot 'form'}}
+    {{frost-bunsen-form
+    bunsenId='userForm'
+    model=userModel
+    value=userValue
+    view=userView
+    onChange=(action 'formValueChanged')
+    onValidation=(action 'onValidation')}}
+  {{/block-slot}}
+  {{#block-slot slot 'actions'}}
+    {{frost-button
+      size='medium'
+      text='Cancel'
+      priority='tertiary'
+      onClick=(action 'cancel')
+    }}
+    {{frost-button
+      disabled=(not isValid)
+      size='medium'
+      text='Save'
+      priority='primary'
+      onClick=(action 'save')
+    }}
+  {{/block-slot}}
+{{/frost-modal-input}}
