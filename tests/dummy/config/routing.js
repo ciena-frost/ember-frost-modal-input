@@ -22,14 +22,6 @@ module.exports = [
       route: 'demo.perfect-scroll',
       path: {
         path: '/perfect-scroll'
-      },
-      modalName: 'frost-create-form-with-scroll',
-      modal: {
-        withParams: 'showModalForm',
-        dialogClass: 'frost-bunsen-form-dialog',
-        actions: {
-          save: 'save'
-        }
       }
     }]
   }
