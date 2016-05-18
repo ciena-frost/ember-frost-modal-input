@@ -19,8 +19,14 @@ describeComponent(
       //   {{/frost-modal-input}}
       // `)
 
-      this.render(hbs`{{frost-modal-input}}`)
-      expect(this.$()).to.have.length(1)
+      this.render(hbs`{{#frost-modal-input
+        title='Test title'
+        subtitle='Subtitle'
+        openButton='Open default modal'
+        openButtonClasses='medium secondary'
+        modalName='my-awesome-modal'}}
+      {{/frost-modal-input}}`)
+      expect(this.$('.ember-remodal.window')).to.have.length(1)
     })
   }
 )
