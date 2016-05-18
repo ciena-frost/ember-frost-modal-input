@@ -66,8 +66,8 @@ export default AbstractModal.extend({
   clearForm () {
     this.set('formValue', {})
   },
-  closeModal() {
-    this.get('remodal').close('my-ps-modal');
+  closeModal () {
+    this.get('remodal').close('my-ps-modal')
   },
   /* Ember.Component method */
   willInsertElement () {

@@ -29,8 +29,8 @@ export default Component.extend({
   clearForm () {
     this.set('userValue', {})
   },
-  closeModal() {
-    this.get('remodal').close('my-awesome-modal');
+  closeModal () {
+    this.get('remodal').close('my-awesome-modal')
   },
   /* Ember.Component method */
   willInsertElement () {

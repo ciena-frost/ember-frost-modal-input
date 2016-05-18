@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 const {Controller, inject, computed} = Ember
 
@@ -17,4 +17,4 @@ export default Controller.extend({
       console.log(attrs)
     }
   }
-});
+})
