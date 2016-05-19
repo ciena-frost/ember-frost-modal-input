@@ -19,7 +19,14 @@
   "engines": {
     "node": ">= 5.0.0"
   },
-  "author": "",
+  "author": "Roxanne Panthaky (https://github.com/rox163)",
+  "contributors": [
+    "Eric White (https://github.com/EWhite613)",
+    "Gosia Hyndman (https://github.com/vesper2000)",
+    "Justin Lafleur (https://github.com/laflower)",
+    "Lisa Irwin (https://github.com/lirwin)",
+    "Matthew Dahl (https://github.com/sandersky)"
+  ],
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
