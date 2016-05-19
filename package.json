@@ -54,6 +54,7 @@
     "ember-sortable": "1.8.1",
     "ember-truth-helpers": "1.2.0",
     "ember-try": "^0.2.0",
+    "ember-wormhole": "0.3.5",
     "eslint": "^2.9.0",
     "eslint-config-frost-standard": "^2.0.0",
     "frost-guide-custom-routing": "0.0.2",

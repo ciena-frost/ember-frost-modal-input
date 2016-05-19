@@ -1,12 +1,20 @@
 {{#ember-remodal
   buttonClasses='frost-button'
   forService=true
-  openButton=openButton
-  openButtonClasses=openButtonClasses
   closeOnOutsideClick=false
+  onOpen=(action 'modalOpen')
+  onClose=(action 'modalClose')
   closeOnEscape=false
   disableNativeClose=true
   name=modalName as |modal|}}
+  {{yield}}
+  {{#modal.open}}
+    {{#yield-slot 'openButton'}}
+      {{yield (block-params (hash
+        button=(component 'frost-button')))}}
+    {{/yield-slot}}
+  {{/modal.open}}
+
   {{#if titleComponent}}
     {{component titleComponent}}
   {{else}}
@@ -17,19 +25,21 @@
       {{/if}}
     </div>
   {{/if}}
-  {{yield}}
-  {{#yield-slot 'form'}}
-    {{#perfect-scroll
-      wheelSpeed=2
-      minScrollbarLength=20
-      maxScrollbarLength=150}}
+  {{#perfect-scroll
+    wheelSpeed=2
+    minScrollbarLength=20
+    maxScrollbarLength=150}}
+    {{#yield-slot 'form'}}
       {{yield}}
-    {{/perfect-scroll}}
-  {{/yield-slot}}
+    {{/yield-slot}}
+  {{/perfect-scroll}}
 
   {{#yield-slot 'actions'}}
     <div class='actions'>
-      {{yield}}
+      {{yield (block-params (hash
+        button=(component 'frost-button'
+        size='medium'
+        vertical=true)))}}
     </div>
   {{/yield-slot}}
 {{/ember-remodal}}

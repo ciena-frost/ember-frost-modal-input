@@ -1,9 +1,9 @@
 import Ember from 'ember'
 import layout from './template'
-import {AbstractModal} from 'ember-frost-modal-input'
-const {inject} = Ember
 
-export default AbstractModal.extend({
+const {Component, inject} = Ember
+
+export default Component.extend({
   remodal: inject.service(),
   modalForms: inject.service('modal-forms'),
 

@@ -1,9 +1,15 @@
 {{#frost-modal-input
   title='Test title'
   subtitle='Subtitle'
-  openButton='Open Modal with Perfect Scroll'
-  openButtonClasses='medium secondary'
-  modalName=modalName}}
+  modalName=modalName as |slot|}}
+  {{#block-slot slot 'openButton' as |item|}}
+    <div style='margin-top:20px;'>
+      {{item.button
+        text='Open long form with scroll'
+        priority='secondary'
+        size='medium'}}
+    </div>
+  {{/block-slot}}
   {{#block-slot slot 'form'}}
     {{frost-bunsen-form
       model=userModel
