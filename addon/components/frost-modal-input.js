@@ -85,7 +85,7 @@ export default Component.extend({
   setScrollBindings () {
     const $headerEl = this.get('$headerEl')
     const $footerEl = this.get('$footerEl')
-    const $containerEl = this.get('$containerEl')
+    // const $containerEl = this.get('$containerEl')
 
     this.set('containerObserver', this.createMutationObserver())
 
