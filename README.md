@@ -10,7 +10,7 @@
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
 
 # ember-frost-modal-input
-A modal component that can contain any other components. Has classes to support a header, an input form and actions in the footer.
+A modal component that can contain bunsen form based components. Has classes to support a header, an input form and actions in the footer.
 
  * [Installation](#installation)
  * [API](#api)
@@ -33,30 +33,56 @@ ember install ember-frost-modal-input
 
 ## Examples
 
-### Parent Controller
-Inject the modal-forms service into the parent controller
-
-```js
-modalForms: Ember.inject.service('modal-forms'),
-isModalActive: Ember.computed.readOnly('modalForms.isModalActive'),
-```
-
 ### Modal component
-Inject the [remodal](http://sethbrasile.github.io/ember-remodal/#/styling) and modal-forms services in your component
+Inject the [remodal](http://sethbrasile.github.io/ember-remodal/) service in your component
 ```js
 remodal: inject.service(),
-modalForms: inject.service('modal-forms'),
 ```
 
-Update the active state of the modal in your component
-```js
-willInsertElement () {
-  this.get('modalForms').setModalActive(true)
-},
+#### Component template using ember-block-slots
+Below is an example of template.hbs
+```handlebars
+{{#frost-modal-input
+  modalName=modalName as |slot|}}
+  {{#block-slot slot 'openButton'}}
+    {{frost-button
+      text='Open long form with scroll'
+      priority='secondary'
+      size='medium'}}
+  {{/block-slot}}
 
-willDestroyElement () {
-  this.get('modalForms').setModalActive(false)
-}
+  {{#block-slot slot 'header'}}
+    {{#frost-info-bar as |header|}}
+      {{#block-slot header 'title'}}
+        Edit user
+      {{/block-slot}}
+      {{#block-slot header 'summary'}}
+        John Smith
+      {{/block-slot}}
+    {{/frost-info-bar}}
+  {{/block-slot}}
+
+  {{#block-slot slot 'form'}}
+    {{frost-bunsen-form
+      model=userModel
+      view=userView
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')}}
+  {{/block-slot}}
+
+  {{#block-slot slot 'actions'}}
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  {{/block-slot}}
+{{/frost-modal-input}}
 ```
 
 #### Default title component template
@@ -82,55 +108,14 @@ const {Component, inject} = Ember
 export default Component.extend({
   layout,
   remodal: inject.service(),
-  modalForms: inject.service('modal-forms'),
   closeModal () {
     this.get('remodal').close(this.get('modalName'))
-  },
-  /* Ember.Component method */
-  willInsertElement () {
-    this.get('modalForms').setModalActive(true)
-  },
-
-  /* Ember.Component method */
-  willDestroyElement () {
-    this.get('modalForms').setModalActive(false)
-  },
+  }
 })
 ```
-#### Component template using ember-block-slots
-Below is an example of template.hbs
-```handlebars
-{{#frost-modal-input
-  title='Test title'
-  subtitle='Subtitle'
-  modalName=modalName as |slot|}}
-  {{#block-slot slot 'openButton' as |item|}}
-    {{item.button
-      text='Open long form with scroll'
-      priority='secondary'
-      size='medium'}}
-  {{/block-slot}}
-  {{#block-slot slot 'form'}}
-    {{frost-bunsen-form
-      model=userModel
-      view=userView
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')}}
-  {{/block-slot}}
-  {{#block-slot slot 'actions'}}
-    {{frost-button
-      onClick=(action 'cancel')
-      size='medium'
-      text='Cancel'
-      priority='tertiary'}}
-    {{frost-button
-      onClick=(action 'save')
-      size='medium'
-      text='Save'
-      priority='primary'}}
-  {{/block-slot}}
-{{/frost-modal-input}}
-```
+#### Background effects
+ember-remodal provides you with a [remodal-bg](http://sethbrasile.github.io/ember-remodal/#/styling) class that you can apply to your application content, to apply blur effects to the modal overlay.
+
 
 ### ember-perfectscroll effects
 

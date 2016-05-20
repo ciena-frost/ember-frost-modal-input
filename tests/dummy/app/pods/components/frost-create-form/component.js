@@ -4,7 +4,6 @@ const {inject, Component} = Ember
 
 export default Component.extend({
   remodal: inject.service(),
-  modalForms: inject.service('modal-forms'),
 
   layout,
   modalName: 'my-awesome-modal',
@@ -32,15 +31,6 @@ export default Component.extend({
   },
   closeModal () {
     this.get('remodal').close(this.get('modalName'))
-  },
-  /* Ember.Component method */
-  willInsertElement () {
-    this.get('modalForms').setModalActive(true)
-  },
-
-  /* Ember.Component method */
-  willDestroyElement () {
-    this.get('modalForms').setModalActive(false)
   },
 
   actions: {
