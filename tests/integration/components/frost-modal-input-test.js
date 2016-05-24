@@ -1,7 +1,26 @@
 import {expect} from 'chai'
+import Ember from 'ember'
 import {describeComponent, it} from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 import { initialize } from 'ember-block-slots/initializers/component-block-slots'
+
+const testModel = Ember.Object.create({
+  'type': 'object',
+  'properties': {
+    'username': {
+      'type': 'string'
+    },
+    'description': {
+      'type': 'string'
+    },
+    'password': {
+      'type': 'string'
+    }
+  },
+  'required': [
+    'username', 'password'
+  ]
+})
 
 describeComponent(
   'frost-modal-input',
@@ -17,31 +36,23 @@ describeComponent(
          application = Ember.Application.create()
          container = application.__container__
          application.deferReadiness()
-       initialize(container, application)
+         this.setProperties({
+           testModel
+        })
       })
+      initialize(container, application)
     })
 
     it('renders', function () {
-      this.set('model', {
-        'type': 'object',
-        'properties': {
-          'username': {
-            'type': 'string'
-          },
-          'description': {
-            'type': 'string'
-          },
-          'password': {
-            'type': 'string'
-          }
-        },
-        'required': [
-          'username', 'password'
-        ]
+      this.on('onChange', function () {
       })
-
+      this.on('onValidation', function () {
+      })
+      this.set('model', testModel)
       this.render(hbs`{{#frost-modal-input
           formModel=model
+          onChange=(action 'onChange')
+          onValidation=(action 'onValidation')
           title='Test title'
           subtitle='Subtitle' as |slot|}}
           {{#block-slot slot 'target'}}
