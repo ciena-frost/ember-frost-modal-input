@@ -8,7 +8,7 @@
   name=modalName as |modal|}}
   {{yield}}
   {{#modal.open}}
-    {{#yield-slot 'openModalElement'}}
+    {{#yield-slot 'target'}}
       {{yield}}
     {{/yield-slot}}
   {{/modal.open}}
@@ -27,18 +27,22 @@
       </div>
     {{/if}}
   {{/yield-slot}}
-  
+
   {{#perfect-scroll
     wheelSpeed=2
     minScrollbarLength=20
     maxScrollbarLength=150}}
-    {{#yield-slot 'content'}}
-      {{yield}}
-    {{/yield-slot}}
+    {{frost-bunsen-form
+      model=formModel
+      view=formView
+      value=formValue
+      onChange=onChange
+      onValidation=onValidation
+      }}
   {{/perfect-scroll}}
 
-  {{#yield-slot 'actions'}}
-    <div class='actions'>
+  {{#yield-slot 'footer'}}
+    <div class='footer'>
       {{yield (block-params (hash
         button=(component 'frost-button'
         size='medium'

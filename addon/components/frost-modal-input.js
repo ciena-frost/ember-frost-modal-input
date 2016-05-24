@@ -117,7 +117,7 @@ export default Component.extend({
     modalOpen () {
       this.set('$containerEl', Ember.$('.ember-remodal.window.remodal-is-opened .ps-container'))
       this.set('$headerEl', Ember.$('.ember-remodal.window.remodal-is-opened .input-header'))
-      this.set('$footerEl', Ember.$('.ember-remodal.window.remodal-is-opened .actions'))
+      this.set('$footerEl', Ember.$('.ember-remodal.window.remodal-is-opened .footer'))
 
       if (!(this.get('$containerEl').length > 0 && this.get('$headerEl').length > 0 && this.get('$footerEl').length > 0)) {
         return

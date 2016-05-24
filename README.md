@@ -10,7 +10,7 @@
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
 
 # ember-frost-modal-input
-A modal component that can contain bunsen form based components. Has classes to support a header, an input form and actions in the footer.
+A modal component that contains bunsen form content. Renders a custom header, a bunsen form and custom actions in the footer.
 
  * [Installation](#installation)
  * [API](#api)
@@ -26,10 +26,15 @@ ember install ember-frost-modal-input
 ## API
 | Attribute | Type | Value | Description |
 | --------- | ---- | ----- | ----------- |
+| `formModel` | `Ember.Object` or `object` | `<model-object-name>` | Name of the bunsen model object |
+| `formValue` | `Ember.Object` or `object` | `<value-object-name>` | Optional name of the bunsen form value object  |
+| `formView` | `Ember.Object` or `object` | `<view-object-name>` | Optional name of the bunsen view object |
 | `title` | `string` | | Optional custom title |
 | `subtitle` | `string` | |  Optional custom subtitle |
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
-| `modalName` | `string` | | Optional name for your modal |
+| `modalName` | `string` | | Optional name for the modal |
+| `onChange` | `Function` | `<action-name>` | Optional callback for when form values change |
+| `onValidation` | `Function` | `<action-name>` | Optional callback for when form is validated |
 
 ## Examples
 
@@ -43,8 +48,15 @@ remodal: inject.service(),
 Below is an example of template.hbs
 ```handlebars
 {{#frost-modal-input
+  formView=userView
+  formModel=userModel
+  formValue=userValue
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')
+  title='Test title'
+  subtitle='Subtitle'
   modalName=modalName as |slot|}}
-  {{#block-slot slot 'openButton'}}
+  {{#block-slot slot 'target'}}
     {{frost-button
       text='Open long form with scroll'
       priority='secondary'
@@ -52,35 +64,28 @@ Below is an example of template.hbs
   {{/block-slot}}
 
   {{#block-slot slot 'header'}}
-    {{#frost-info-bar as |header|}}
-      {{#block-slot header 'title'}}
+    {{#frost-info-bar as |slot|}}
+      {{#block-slot slot 'title'}}
         Edit user
       {{/block-slot}}
-      {{#block-slot header 'summary'}}
+      {{#block-slot slot 'summary'}}
         John Smith
       {{/block-slot}}
     {{/frost-info-bar}}
   {{/block-slot}}
 
-  {{#block-slot slot 'form'}}
-    {{frost-bunsen-form
-      model=userModel
-      view=userView
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')}}
-  {{/block-slot}}
-
-  {{#block-slot slot 'actions'}}
-    {{frost-button
-      onClick=(action 'cancel')
-      size='medium'
+  {{#block-slot slot 'footer' as |action|}}
+    {{action.button
       text='Cancel'
-      priority='tertiary'}}
-    {{frost-button
-      onClick=(action 'save')
-      size='medium'
+      priority='tertiary'
+      onClick=(action 'cancel')
+    }}
+    {{action.button
+      disabled=(not isValid)
       text='Save'
-      priority='primary'}}
+      priority='primary'
+      onClick=(action 'save')
+    }}
   {{/block-slot}}
 {{/frost-modal-input}}
 ```
@@ -115,7 +120,11 @@ export default Component.extend({
 ```
 #### Background effects
 ember-remodal provides you with a [remodal-bg](http://sethbrasile.github.io/ember-remodal/#/styling) class that you can apply to your application content, to apply blur effects to the modal overlay.
-
+```handlebars
+<div class="dummy-content remodal-bg">
+  {{outlet}}
+</div>
+```
 
 ### ember-perfectscroll effects
 
