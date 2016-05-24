@@ -1,10 +1,9 @@
 // import {expect} from 'chai'
-import Ember from 'ember'
 import {describeComponent, it} from 'ember-mocha'
 // import hbs from 'htmlbars-inline-precompile'
 // import { initialize } from 'ember-block-slots/initializers/component-block-slots'
 
-// const testModel = Ember.Object.create({
+// const testModel = {
 //   'type': 'object',
 //   'properties': {
 //     'username': {
@@ -20,7 +19,7 @@ import {describeComponent, it} from 'ember-mocha'
 //   'required': [
 //     'username', 'password'
 //   ]
-// })
+// }
 
 describeComponent(
   'frost-modal-input',
