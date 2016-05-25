@@ -14,7 +14,7 @@
     "sinonjs": "1.17.1",
     "z-schema": "3.16.1",
     "marked": "^0.3.5",
-    "highlightjs": "^9.2.0",
+    "highlightjs": "^9.3.0",
     "perfect-scrollbar": ">=0.6.7 <2.0.0",
     "remodal": "1.0.7"
   },
