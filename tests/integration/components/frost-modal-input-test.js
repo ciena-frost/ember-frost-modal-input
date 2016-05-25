@@ -8,6 +8,12 @@ import {
 } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 import { initialize } from 'ember-block-slots/initializers/component-block-slots'
+import $ from 'jquery'
+import {
+  beforeEach,
+  afterEach,
+  done
+} from 'mocha'
 
 const testModel = {
   'type': 'object',
@@ -54,21 +60,21 @@ describeComponent(
   function () {
     let container, application
 
-     beforeEach(function () {
-       Ember.testing = true
-       Ember.run(() => {
-         application = Ember.Application.create()
-         container = application.__container__
-         application.deferReadiness()
-         this.setProperties({
-           testModel
+    beforeEach(function () {
+      Ember.testing = true
+      Ember.run(() => {
+        application = Ember.Application.create()
+        container = application.__container__
+        application.deferReadiness()
+        this.setProperties({
+          testModel
         })
       })
       initialize(container, application)
     })
 
     afterEach(function () {
-        Ember.testing = false
+      Ember.testing = false
     })
 
     it('renders target', function () {
