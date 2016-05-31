@@ -33,11 +33,15 @@
     minScrollbarLength=20
     maxScrollbarLength=150}}
     {{frost-bunsen-form
-      model=formModel
-      view=formView
-      value=formValue
+      bunsenModel=formModel
+      bunsenView=formView
+      inline=true
       onChange=onChange
       onValidation=onValidation
+      renderers=renderers
+      showAllErrors=showAllErrors
+      value=formValue
+      validators=validators
       }}
   {{/perfect-scroll}}
 
