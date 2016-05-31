@@ -11,6 +11,8 @@ export default Component.extend({
   $containerEl: null,
   $headerEl: null,
   $footerEl: null,
+  renderers: {},
+  validators: [],
 
   /**
    * create a window.MutationObserver on the container element
