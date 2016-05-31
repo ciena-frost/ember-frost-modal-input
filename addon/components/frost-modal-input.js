@@ -85,7 +85,6 @@ export default Component.extend({
   setScrollBindings () {
     const $headerEl = this.get('$headerEl')
     const $footerEl = this.get('$footerEl')
-    // const $containerEl = this.get('$containerEl')
 
     this.set('containerObserver', this.createMutationObserver())
 
@@ -94,11 +93,9 @@ export default Component.extend({
     Ember.$(document).on('ps-y-reach-end', () => $footerEl.removeClass('footer-scrolled'))
     Ember.$(document).on('ps-scroll-down', () => {
       $headerEl.addClass('header-scrolled')
-      // $containerEl.addClass('content-padding')
     })
     Ember.$(document).on('ps-y-reach-start', () => {
       $headerEl.removeClass('header-scrolled')
-      // $containerEl.removeClass('content-padding')
     })
 
     Ember.$(window).resize(this.updateScrollStyles.bind(this))
