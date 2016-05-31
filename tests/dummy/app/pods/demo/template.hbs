@@ -1,14 +1,48 @@
-<div class="dummy-body">
-  {{#frost-link 'demo.default'
-    priority='secondary'
-    size='small'}}
-    Default
-  {{/frost-link}}
-  {{#frost-link 'demo.perfect-scroll'
-    priority='secondary'
-    size='small'}}
-    Perfect Scroll
-  {{/frost-link}}
+<div class="section-title">frost-modal-input</div>
+<hr>
+<div class="section">
+  <div class="example">
+    <div class="demo">
+      {{frost-create-form
+        onConfirm=(action 'save')}}
+      {{frost-create-long-form
+        onConfirm=(action 'save')}}
+    </div>
+    <div class="snippet">
+      {{format-markdown "```handlebars
+{{#frost-modal-input
+  formView=userView
+  formModel=userModel
+  formValue=userValue
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')
+  title='Test title'
+  subtitle='Subtitle'
+  modalName=modalName as |slot|}}
+  {{#block-slot slot 'target'}}
+    {{frost-button
+      text='Open modal'
+      priority='secondary'
+      size='medium'}}
+  {{/block-slot}}
 
-  {{outlet}}
+  {{#block-slot slot 'footer' as |action|}}
+    {{action.button
+      text='Cancel'
+      priority='tertiary'
+      onClick=(action 'cancel')
+    }}
+    {{action.button
+      disabled=(not isValid)
+      text='Save'
+      priority='primary'
+      onClick=(action 'save')
+    }}
+  {{/block-slot}}
+{{/frost-modal-input}}
+
+    ```"
+      }}
+    </div>
+  </div>
 </div>

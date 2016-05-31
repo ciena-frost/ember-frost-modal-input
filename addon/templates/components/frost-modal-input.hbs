@@ -1,11 +1,52 @@
-{{#if titleComponent}}
-  {{component titleComponent}}
-{{else}}
-  <div class="input-header">
-    <div class="primary-title">{{title}}</div>
-    {{#if subtitle}}
-      <div class="sub-title">{{subtitle}}</div>
+{{#ember-remodal
+  forService=true
+  closeOnOutsideClick=false
+  onOpen=(action 'modalOpen')
+  onClose=(action 'modalClose')
+  closeOnEscape=false
+  disableNativeClose=true
+  name=modalName as |modal|}}
+  {{yield}}
+  {{#modal.open}}
+    {{#yield-slot 'target'}}
+      {{yield}}
+    {{/yield-slot}}
+  {{/modal.open}}
+
+  {{#yield-slot 'header'}}
+    {{yield}}
+  {{else}}
+    {{#if titleComponent}}
+      {{component titleComponent}}
+    {{else}}
+      <div class="input-header">
+        <div class="primary-title">{{title}}</div>
+        {{#if subtitle}}
+          <div class="sub-title">{{subtitle}}</div>
+        {{/if}}
+      </div>
     {{/if}}
-  </div>
-{{/if}}
-{{yield}}
+  {{/yield-slot}}
+
+  {{#perfect-scroll
+    wheelSpeed=2
+    minScrollbarLength=20
+    maxScrollbarLength=150}}
+    {{frost-bunsen-form
+      model=formModel
+      view=formView
+      value=formValue
+      onChange=onChange
+      onValidation=onValidation
+      }}
+  {{/perfect-scroll}}
+
+  {{#yield-slot 'footer'}}
+    <div class='footer'>
+      {{yield (block-params (hash
+        button=(component 'frost-button'
+        size='medium'
+        vertical=true)))}}
+    </div>
+  {{/yield-slot}}
+{{/ember-remodal}}

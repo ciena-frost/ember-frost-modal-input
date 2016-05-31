@@ -3,8 +3,11 @@ import layout from './template'
 const {inject, Component} = Ember
 
 export default Component.extend({
+  remodal: inject.service(),
+
   layout,
-  modalForms: inject.service('modal-forms'),
+  modalName: 'my-awesome-modal',
+  userValue: {},
   userModel: {
     'type': 'object',
     'properties': {
@@ -23,48 +26,31 @@ export default Component.extend({
     ]
   },
 
-  /* Ember.Component method */
-  willInsertElement () {
-    this.get('modalForms').setModalActive(true)
-  },
-
-  /* Ember.Component method */
-  willDestroyElement () {
-    this.get('modalForms').setModalActive(false)
-  },
-
-  formData: {
-    state: {},
-    isValid: false
-  },
-
   clearForm () {
-    this.set('formData', {
-      state: {},
-      isValid: false
-    })
+    this.set('userValue', {})
+  },
+  closeModal () {
+    this.get('remodal').close(this.get('modalName'))
   },
 
   actions: {
     cancel () {
       this.clearForm()
-      this.sendAction('dismiss')
+      this.closeModal()
     },
 
     formValueChanged (formState) {
-      this.set('formData.state', formState)
+      this.set('userValue', formState)
     },
 
-    onValidation (info) {
-      this.set('formData.isValid', info.valid)
+    onValidation (e) {
+      this.set('isValid', e.errors.length === 0)
     },
 
     save () {
-      if (this.get('formData.isValid')) {
-        this.sendAction('save', this.get('formData.state'))
-        this.sendAction('dismiss')
-        this.clearForm()
-      }
+      this.get('onConfirm')(this.get('userValue'))
+      this.clearForm()
+      this.closeModal()
     }
   }
 })

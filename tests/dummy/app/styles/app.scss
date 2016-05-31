@@ -13,27 +13,27 @@
     display: flex;
     flex-direction: row;
     flex-flow: wrap;
-    padding-left: 10px;
     width: calc(100vw - 250px);
+    padding-left: 10px;
 
     > .title {
-      font-size: $frost-font-xl;
       padding-bottom: 20px;
+      font-size: $frost-font-xl;
     }
 
     .example {
-      padding-bottom: 10px;
       padding-right: 25px;
+      padding-bottom: 10px;
 
       > .title {
-        font-size: $frost-font-l;
         padding-bottom: 15px;
+        font-size: $frost-font-l;
       }
 
       .snippet {
         display: inline-block;
-        font-size: $frost-font-s;
         margin-right: 20px;
+        font-size: $frost-font-s;
         vertical-align: top;
       }
 
@@ -42,9 +42,9 @@
         vertical-align: top;
 
         > .frost-icon {
+          width: 40px;
           height: 40px;
           margin-bottom: 20px;
-          width: 40px;
         }
       }
     }
@@ -52,11 +52,11 @@
 }
 
 .dummy-notification-container {
-  margin: auto;
-  max-width: 400px;
   position: fixed;
-  right: 10px;
   top: 60px;
+  right: 10px;
   width: 80%;
+  max-width: 400px;
+  margin: auto;
   z-index: 999;
 }

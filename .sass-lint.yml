@@ -240,7 +240,10 @@ rules:
 
   # enforce the order in which declarations are written (default alphabetical)
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/property-sort-order.md
-  property-sort-order: 2
+  property-sort-order:
+    - 2
+    -
+      order: smacss
 
   # enforce whether single quotes ('') or double quotes ("") should be used for all strings (defaults single)
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/quotes.md

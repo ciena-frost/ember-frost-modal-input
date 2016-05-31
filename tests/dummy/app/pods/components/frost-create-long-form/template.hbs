@@ -1,0 +1,29 @@
+{{#frost-modal-input
+  formModel=userModel
+  formView=userView
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')
+  title='Test title'
+  subtitle='Subtitle'
+  modalName=modalName as |slot|}}
+  {{#block-slot slot 'target'}}
+    <div style='margin-top:20px;'>
+      {{frost-button
+        text='Open long form with scroll'
+        priority='secondary'
+        size='medium'}}
+    </div>
+  {{/block-slot}}
+  {{#block-slot slot 'footer'}}
+    {{frost-button
+      onClick=(action 'cancel')
+      size='medium'
+      text='Cancel'
+      priority='tertiary'}}
+    {{frost-button
+      onClick=(action 'save')
+      size='medium'
+      text='Save'
+      priority='primary'}}
+  {{/block-slot}}
+{{/frost-modal-input}}

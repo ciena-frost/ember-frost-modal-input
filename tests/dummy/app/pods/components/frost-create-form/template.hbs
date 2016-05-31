@@ -1,22 +1,29 @@
-{{#frost-modal-input title='Test title' subtitle='Subtitle'}}
-{{!#frost-modal-input titleComponent='myTitle'}}
-
-  {{frost-bunsen-form
-      model=userModel
-      view=userView
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')}}
-
-  <div class='actions'>
+{{#frost-modal-input
+  formView=userView
+  formModel=userModel
+  formValue=userValue
+  onChange=(action 'formValueChanged')
+  onValidation=(action 'onValidation')
+  title='Test title'
+  subtitle='Subtitle'
+  modalName=modalName as |slot|}}
+  {{#block-slot slot 'target'}}
     {{frost-button
-      onClick=(action 'cancel')
-      size='medium'
+      text='Open small form'
+      priority='secondary'
+      size='medium'}}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |action|}}
+    {{action.button
       text='Cancel'
-      priority='tertiary'}}
-    {{frost-button
-      onClick=(action 'save')
-      size='medium'
+      priority='tertiary'
+      onClick=(action 'cancel')
+    }}
+    {{action.button
+      disabled=(not isValid)
       text='Save'
-      priority='primary'}}
-  </div>
+      priority='primary'
+      onClick=(action 'save')
+    }}
+  {{/block-slot}}
 {{/frost-modal-input}}
