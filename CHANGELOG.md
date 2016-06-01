@@ -1,3 +1,17 @@
+# 4.0.0
+
+## Breaking
+
+* **Upgraded** [ember-frost-bunsen](https://github.com/ciena-frost/ember-frost-bunsen) to version `6.0.3`.
+* **Upgraded** [ember-prop-types](https://github.com/ciena-blueplanet/ember-prop-types) to version `2.0.0`.
+
+## Non-Breaking
+
+* **Added** `renderers` property for passing renderers to `frost-bunsen-form`.
+* **Added** `showAllErrors` property for whether or not form should show all errors.
+* **Added** `validators` property for passing validators to `frost-bunsen-form`.
+* **Updated** component to use [ember-prop-types](https://github.com/ciena-blueplanet/ember-prop-types) for property validation.
+
 # 3.0.1
 No CHANGELOG section found in Pull Request description.
 Use a `# CHANGELOG` section in your Pull Request description to auto-populate the `CHANGELOG.md`
