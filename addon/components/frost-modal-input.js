@@ -1,16 +1,65 @@
 /* global Ps */
 import Ember from 'ember'
-import layout from '../templates/components/frost-modal-input'
-
 const {Component} = Ember
+import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
-export default Component.extend({
-  layout,
+export default Component.extend(PropTypeMixin, {
+  // ==========================================================================
+  // Dependencies
+  // ==========================================================================
+
+  // ==========================================================================
+  // Properties
+  // ==========================================================================
+
   scrollBindingsSet: false,
   containerObserver: null,  // @type {window.MutationObserver}
   $containerEl: null,
   $headerEl: null,
   $footerEl: null,
+
+  propTypes: {
+    formModel: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]).isRequired,
+    formValue: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.EmberObject
+    ]),
+    formView: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    modalName: PropTypes.string,
+    onChange: PropTypes.func,
+    onValidation: PropTypes.func,
+    renderers: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    showAllErrors: PropTypes.bool,
+    subtitle: PropTypes.string,
+    title: PropTypes.string,
+    titleComponent: PropTypes.string,
+    validators: PropTypes.array
+  },
+
+  getDefaultProps () {
+    return {
+      renderers: {},
+      showAllErrors: false,
+      validators: []
+    }
+  },
+
+  // ==========================================================================
+  // Computed Properties
+  // ==========================================================================
+
+  // ==========================================================================
+  // Functions
+  // ==========================================================================
 
   /**
    * create a window.MutationObserver on the container element
@@ -34,10 +83,10 @@ export default Component.extend({
   },
 
   /**
-  * update perfect-scrollbar before checking scoll position
-  * need to disconnect MutationObserver then re-establish to prevent infinite loop
-  * of mutation event triggers, callback updates, which triggers new mutation event...
-  */
+   * update perfect-scrollbar before checking scoll position
+   * need to disconnect MutationObserver then re-establish to prevent infinite loop
+   * of mutation event triggers, callback updates, which triggers new mutation event...
+   */
   updatePerfectScrollbar () {
     let mutationObserver
     const $containerEl = this.get('$containerEl')
@@ -58,8 +107,8 @@ export default Component.extend({
   },
 
   /**
-  * Checks scroll position within container element to add/remove scroll styling to header/footer elements
-  */
+   * Checks scroll position within container element to add/remove scroll styling to header/footer elements
+   */
   updateScrollStyles () {
     const $containerEl = this.get('$containerEl')
     const $headerEl = this.get('$headerEl')
@@ -109,6 +158,14 @@ export default Component.extend({
   didRender () {
     Ember.$('.ember-remodal.window').addClass('frost-modal-input')
   },
+
+  // ==========================================================================
+  // Events
+  // ==========================================================================
+
+  // ==========================================================================
+  // Actions
+  // ==========================================================================
 
   actions: {
     modalOpen () {
