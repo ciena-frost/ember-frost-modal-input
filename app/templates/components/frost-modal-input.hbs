@@ -32,17 +32,19 @@
     wheelSpeed=2
     minScrollbarLength=20
     maxScrollbarLength=150}}
-    {{frost-bunsen-form
-      bunsenModel=formModel
-      bunsenView=formView
-      inline=true
-      onChange=onChange
-      onValidation=onValidation
-      renderers=renderers
-      showAllErrors=showAllErrors
-      value=formValue
-      validators=validators
-      }}
+    {{#if formModel}}
+      {{frost-bunsen-form
+        bunsenModel=formModel
+        bunsenView=formView
+        inline=true
+        onChange=onChange
+        onValidation=onValidation
+        renderers=renderers
+        showAllErrors=showAllErrors
+        value=formValue
+        validators=validators
+        }}
+      {{/if}}
   {{/perfect-scroll}}
 
   {{#yield-slot 'footer'}}
