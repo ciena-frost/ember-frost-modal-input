@@ -11,7 +11,6 @@ module.exports = function (defaults) {
     }
   })
 
-  app.import('bower_components/sinonjs/sinon.js')
   app.import('bower_components/highlightjs/styles/github.css')
   app.import('bower_components/perfect-scrollbar/js/perfect-scrollbar.js')
   app.import('bower_components/perfect-scrollbar/css/perfect-scrollbar.css')
