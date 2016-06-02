@@ -34,6 +34,8 @@ ember install ember-frost-modal-input
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 | `modalName` | `string` | | Required name for the modal |
 | `onChange` | `Function` | `<action-name>` | Optional callback for when form values change |
+| `onClose` | `Function` | `<action-name>` | Optional callback for when modal is closed |
+| `onOpen` | `Function` | `<action-name>` | Optional callback for when modal is opened |
 | `onValidation` | `Function` | `<action-name>` | Optional callback for when form is validated |
 
 ## Examples
