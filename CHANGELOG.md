@@ -1,3 +1,8 @@
+# 4.1.0
+
+* **Added** `onClose` property so consumer can know when modal is closed.
+* **Added** `onOpen` property so consumer can know when modal is opened.
+
 # 4.0.1
 
 * **Changed** dialog footer buttons from a fixed width of `150px` to have a minimum width of `150px`.

@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-modal-input",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Modal component to support forms",
   "frostGuideDirectory": "ui-components/input-controls/modal-dialog-input",
   "directories": {
