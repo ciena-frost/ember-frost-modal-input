@@ -1,3 +1,7 @@
+# 4.0.1
+
+* **Changed** dialog footer buttons from a fixed width of `150px` to have a minimum width of `150px`.
+
 # 4.0.0
 
 ## Breaking
