@@ -1,6 +1,6 @@
 import Ember from 'ember'
 import layout from './template'
-const {inject, Component} = Ember
+const {inject, Component, Logger} = Ember
 
 export default Component.extend({
   remodal: inject.service(),
@@ -39,12 +39,20 @@ export default Component.extend({
       this.closeModal()
     },
 
+    close () {
+      Logger.log('modal closed')
+    },
+
     formValueChanged (formState) {
       this.set('userValue', formState)
     },
 
     onValidation (e) {
       this.set('isValid', e.errors.length === 0)
+    },
+
+    open () {
+      Logger.log('modal opened')
     },
 
     save () {
