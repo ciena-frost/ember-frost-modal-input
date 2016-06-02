@@ -33,6 +33,8 @@ export default Component.extend(PropTypeMixin, {
     ]),
     modalName: PropTypes.string,
     onChange: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func,
     onValidation: PropTypes.func,
     renderers: PropTypes.oneOfType([
       PropTypes.EmberObject,
@@ -179,6 +181,12 @@ export default Component.extend(PropTypeMixin, {
       if (!this.get('scrollBindingsSet')) {
         this.setScrollBindings()
       }
+
+      const onOpen = this.get('onOpen')
+
+      if (onOpen) {
+        onOpen()
+      }
     },
     modalClose () {
       Ember.$(document).off('ps-scroll-up ps-scroll-down ps-y-reach-start ps-y-reach-end')
@@ -189,6 +197,12 @@ export default Component.extend(PropTypeMixin, {
         this.get('containerObserver').disconnect()
       }
       this.set('scrollBindingsSet', false)
+
+      const onClose = this.get('onClose')
+
+      if (onClose) {
+        onClose()
+      }
     }
   }
 })
