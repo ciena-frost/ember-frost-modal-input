@@ -48,9 +48,10 @@ describeComponent(
     integration: true
   },
   function () {
-    let container, application
+    let container, application, sandbox
 
     beforeEach(function () {
+      sandbox = sinon.sandbox.create()
       Ember.testing = true
       Ember.run(() => {
         application = Ember.Application.create()
@@ -61,14 +62,14 @@ describeComponent(
     })
 
     afterEach(function () {
+      sandbox.restore()
       Ember.testing = false
     })
 
     describe('render', function () {
-      let sandbox, onOpen, onClose
+      let onOpen, onClose
 
       beforeEach(function () {
-        sandbox = sinon.sandbox.create()
         onClose = sandbox.spy()
         onOpen = sandbox.spy()
 
@@ -101,12 +102,12 @@ describeComponent(
         {{/frost-modal-input}}`)
       })
 
-      afterEach(function () {
-        sandbox.restore()
-      })
-
       it('renders target', function () {
         expect(this.$('.frost-button:visible')).to.have.length(1)
+      })
+
+      it('has no disabled inputs', function () {
+        expect(this.$('input:disabled').length).to.equal(0)
       })
 
       describe('open modal', function () {
@@ -145,6 +146,49 @@ describeComponent(
         it('does not fire onClose property', function () {
           expect(onClose.callCount).to.equal(0)
         })
+      })
+    })
+
+    describe('render disabled', function () {
+      beforeEach(function () {
+        this.setProperties({testModel})
+
+        this.render(hbs`{{#frost-modal-input
+            formDisabled=true
+            formModel=testModel
+            modalName='my-test-modal'
+            subtitle='Subtitle'
+            title='Test title'
+            onClose=onClose
+            onOpen=onOpen
+            as |slot|
+          }}
+            {{#block-slot slot 'target'}}
+              {{frost-button
+                text='Open small form'
+                priority='secondary'
+                size='medium'}}
+            {{/block-slot}}
+            {{#block-slot slot 'footer' as |action|}}
+              {{action.button
+                priority='tertiary'
+                text='Cancel'
+              }}
+              {{action.button
+                disabled=(not isValid)
+                priority='primary'
+                text='Save'
+              }}
+            {{/block-slot}}
+          {{/frost-modal-input}}`)
+      })
+
+      it('renders target', function () {
+        expect(this.$('.frost-button:visible')).to.have.length(1)
+      })
+
+      it('has all disabled inputs', function () {
+        expect(this.$('input:disabled').length).to.equal(Object.keys(testModel.properties).length)
       })
     })
   }
