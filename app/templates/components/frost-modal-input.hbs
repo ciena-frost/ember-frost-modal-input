@@ -36,6 +36,7 @@
       {{frost-bunsen-form
         bunsenModel=formModel
         bunsenView=formView
+        disabled=formDisabled
         inline=true
         onChange=onChange
         onValidation=onValidation
@@ -43,8 +44,8 @@
         showAllErrors=showAllErrors
         value=formValue
         validators=validators
-        }}
-      {{/if}}
+      }}
+    {{/if}}
   {{/perfect-scroll}}
 
   {{#yield-slot 'footer'}}

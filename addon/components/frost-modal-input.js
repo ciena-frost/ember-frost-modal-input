@@ -19,6 +19,7 @@ export default Component.extend(PropTypeMixin, {
   $footerEl: null,
 
   propTypes: {
+    formDisabled: PropTypes.bool,
     formModel: PropTypes.oneOfType([
       PropTypes.EmberObject,
       PropTypes.object
@@ -49,6 +50,7 @@ export default Component.extend(PropTypeMixin, {
 
   getDefaultProps () {
     return {
+      formDisabled: false,
       renderers: {},
       showAllErrors: false,
       validators: []
