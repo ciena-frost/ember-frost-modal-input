@@ -1,3 +1,6 @@
+# 4.2.0
+**Added** `formDisabled` property to pass through to `disabled` on the bunsen form, allowing disabling of the entire form at once. 
+
 # 4.1.0
 
 * **Added** `onClose` property so consumer can know when modal is closed.
