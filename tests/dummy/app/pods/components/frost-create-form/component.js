@@ -29,17 +29,10 @@ export default Component.extend({
   clearForm () {
     this.set('userValue', {})
   },
-  closeModal () {
-    this.get('remodal').close(this.get('modalName'))
-  },
 
   actions: {
-    cancel () {
+    clearForm () {
       this.clearForm()
-      this.closeModal()
-    },
-
-    close () {
       Logger.log('modal closed')
     },
 
@@ -58,7 +51,6 @@ export default Component.extend({
     save () {
       this.get('onConfirm')(this.get('userValue'))
       this.clearForm()
-      this.closeModal()
     }
   }
 })

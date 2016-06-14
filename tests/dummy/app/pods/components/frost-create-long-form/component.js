@@ -4,15 +4,17 @@ import layout from './template'
 const {Component, inject, Logger} = Ember
 
 export default Component.extend({
-  remodal: inject.service(),
 
   layout,
   formValue: {},
+  renderers: {},
+  showAllErrors: false,
+  validators: [],
   modalName: 'my-ps-modal',
   userModel: {
     'type': 'object',
     'properties': {
-      'username1': {
+      'firstName': {
         'type': 'string'
       },
       'description1': {
@@ -66,17 +68,10 @@ export default Component.extend({
   clearForm () {
     this.set('formValue', {})
   },
-  closeModal () {
-    this.get('remodal').close(this.get('modalName'))
-  },
 
   actions: {
-    cancel () {
+    clearForm () {
       this.clearForm()
-      this.closeModal()
-    },
-
-    close () {
       Logger.log('modal closed')
     },
 
@@ -94,7 +89,6 @@ export default Component.extend({
 
     save () {
       this.get('onConfirm')(this.get('formValue'))
-      this.closeModal()
       this.clearForm()
     }
   }
