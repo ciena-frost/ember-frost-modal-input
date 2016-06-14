@@ -1,3 +1,7 @@
+# 5.0.0
+**Updated**  to consume `ember-frost-modal`.
+**Removed** bunsen binding in addon. Consumer now can add bunsen in 'body' slot section.  
+
 # 4.2.0
 **Added** `formDisabled` property to pass through to `disabled` on the bunsen form, allowing disabling of the entire form at once. 
 
