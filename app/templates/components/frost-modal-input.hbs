@@ -29,18 +29,13 @@
     {{/yield-slot}}
   {{/block-slot}}
 
-  {{#block-slot slot 'cancel'}}
-    {{frost-button
-      autofocus=true
-      size='medium'
-      priority='tertiary'
-      text='Cancel'
-    }}
-  {{/block-slot}}
-  {{#block-slot slot 'confirm'}}
-    {{frost-button
-      size='medium'
-      priority='primary'
-      text=confirmBtn}}
+  {{#block-slot slot 'footer' as |controls|}}
+    {{controls.cancel}}
+    {{#yield-slot 'footer'}}
+      {{yield}}
+    {{/yield-slot}}
+    {{controls.confirm
+    onConfirm=onSubmitHandler
+    text=confirmBtn}}
   {{/block-slot}}
 {{/frost-modal}}

@@ -1,4 +1,3 @@
-/* global Ps */
 import Ember from 'ember'
 const {Component} = Ember
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
@@ -42,17 +41,6 @@ export default Component.extend(PropTypeMixin, {
   // ==========================================================================
 
   actions: {
-    modalOpen() {
-      if (onOpen) {
-        onOpen()
-      }
-
-    },
-    modalClose () {
-      if (onClose) {
-        onClose()
-      }
-    },
     confirm () {
       this.get('onSubmitHandler')()
     }

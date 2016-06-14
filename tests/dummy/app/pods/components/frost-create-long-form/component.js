@@ -1,7 +1,7 @@
 import Ember from 'ember'
 import layout from './template'
 
-const {Component, inject, Logger} = Ember
+const {Component, Logger} = Ember
 
 export default Component.extend({
 

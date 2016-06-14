@@ -1,9 +1,8 @@
 import Ember from 'ember'
 import layout from './template'
-const {inject, Component, Logger} = Ember
+const {Component, Logger} = Ember
 
 export default Component.extend({
-  remodal: inject.service(),
 
   layout,
   modalName: 'my-awesome-modal',

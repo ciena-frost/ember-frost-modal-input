@@ -1,4 +1,5 @@
 {{#frost-modal-input
+  confirmBtn='Submit'
   title='Test title'
   subtitle='Subtitle'
   modalName=modalName
@@ -12,6 +13,7 @@
   {{/block-slot}}
   {{#block-slot slot 'body'}}
     {{frost-bunsen-form
+      autofocus=false
       bunsenModel=userModel
       inline=true
       onChange=(action 'formValueChanged')

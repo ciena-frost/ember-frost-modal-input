@@ -16,6 +16,7 @@
   {{#block-slot slot 'body'}}
     {{frost-bunsen-form
       bunsenModel=userModel
+      autofocus=false
       inline=true
       onChange=(action 'formValueChanged')
       onValidation=(action 'onValidation')
