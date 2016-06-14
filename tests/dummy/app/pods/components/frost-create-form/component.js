@@ -1,9 +1,8 @@
 import Ember from 'ember'
 import layout from './template'
-const {inject, Component, Logger} = Ember
+const {Component, Logger} = Ember
 
 export default Component.extend({
-  remodal: inject.service(),
 
   layout,
   modalName: 'my-awesome-modal',
@@ -29,17 +28,10 @@ export default Component.extend({
   clearForm () {
     this.set('userValue', {})
   },
-  closeModal () {
-    this.get('remodal').close(this.get('modalName'))
-  },
 
   actions: {
-    cancel () {
+    clearForm () {
       this.clearForm()
-      this.closeModal()
-    },
-
-    close () {
       Logger.log('modal closed')
     },
 
@@ -58,7 +50,10 @@ export default Component.extend({
     save () {
       this.get('onConfirm')(this.get('userValue'))
       this.clearForm()
-      this.closeModal()
+    },
+
+    myCustomAction () {
+      Logger.log('Custom action triggered')
     }
   }
 })

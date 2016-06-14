@@ -26,9 +26,6 @@ ember install ember-frost-modal-input
 ## API
 | Attribute | Type | Value | Description |
 | --------- | ---- | ----- | ----------- |
-| `formModel` | `Ember.Object` or `object` | `<model-object-name>` | Name of the bunsen model object |
-| `formValue` | `Ember.Object` or `object` | `<value-object-name>` | Optional name of the bunsen form value object  |
-| `formView` | `Ember.Object` or `object` | `<view-object-name>` | Optional name of the bunsen view object |
 | `title` | `string` | | Optional custom title |
 | `subtitle` | `string` | |  Optional custom subtitle |
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |

@@ -186,10 +186,6 @@ describeComponent(
       it('renders target', function () {
         expect(this.$('.frost-button:visible')).to.have.length(1)
       })
-
-      it('has all disabled inputs', function () {
-        expect(this.$('input:disabled').length).to.equal(Object.keys(testModel.properties).length)
-      })
     })
   }
 )

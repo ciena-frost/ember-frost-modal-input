@@ -1,21 +1,16 @@
-{{#ember-remodal
-  forService=true
-  closeOnOutsideClick=false
-  onOpen=(action 'modalOpen')
-  onClose=(action 'modalClose')
-  closeOnEscape=false
-  disableNativeClose=true
-  name=modalName as |modal|}}
-  {{yield}}
-  {{#modal.open}}
+{{#frost-modal
+  modalClass='frost-modal-input'
+  modalName=modalName
+  onOpen=onOpen
+  onClose=onClose
+  confirm=(action 'confirm') as |slot|}}
+  {{#block-slot slot 'target'}}
     {{#yield-slot 'target'}}
       {{yield}}
     {{/yield-slot}}
-  {{/modal.open}}
+  {{/block-slot}}
 
-  {{#yield-slot 'header'}}
-    {{yield}}
-  {{else}}
+  {{#block-slot slot 'header'}}
     {{#if titleComponent}}
       {{component titleComponent}}
     {{else}}
@@ -26,34 +21,25 @@
         {{/if}}
       </div>
     {{/if}}
-  {{/yield-slot}}
+  {{/block-slot}}
 
-  {{#perfect-scroll
-    wheelSpeed=2
-    minScrollbarLength=20
-    maxScrollbarLength=150}}
-    {{#if formModel}}
-      {{frost-bunsen-form
-        bunsenModel=formModel
-        bunsenView=formView
-        disabled=formDisabled
-        inline=true
-        onChange=onChange
-        onValidation=onValidation
-        renderers=renderers
-        showAllErrors=showAllErrors
-        value=formValue
-        validators=validators
-      }}
-    {{/if}}
-  {{/perfect-scroll}}
+  {{#block-slot slot 'body'}}
+    {{#yield-slot 'body'}}
+      {{yield}}
+    {{/yield-slot}}
+  {{/block-slot}}
 
-  {{#yield-slot 'footer'}}
-    <div class='footer'>
-      {{yield (block-params (hash
-        button=(component 'frost-button'
-        size='medium'
-        vertical=true)))}}
-    </div>
-  {{/yield-slot}}
-{{/ember-remodal}}
+  {{#block-slot slot 'footer' as |controls|}}
+    {{controls.cancel}}
+    {{#yield-slot 'footer'}}
+      {{yield (block-params
+        (hash
+         button=controls.button
+        )
+      )}}
+    {{/yield-slot}}
+    {{controls.confirm
+    onConfirm=onSubmitHandler
+    text=confirmBtn}}
+  {{/block-slot}}
+{{/frost-modal}}
