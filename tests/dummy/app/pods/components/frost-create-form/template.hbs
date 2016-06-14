@@ -21,4 +21,9 @@
       value=userValue
       }}
   {{/block-slot}}
+  {{#block-slot slot 'footer' as |controls|}}
+    {{controls.button
+    text='Custom action'
+    onClick=(action 'myCustomAction')}}
+  {{/block-slot}}
 {{/frost-modal-input}}

@@ -32,7 +32,11 @@
   {{#block-slot slot 'footer' as |controls|}}
     {{controls.cancel}}
     {{#yield-slot 'footer'}}
-      {{yield}}
+      {{yield (block-params
+        (hash
+         button=controls.button
+        )
+      )}}
     {{/yield-slot}}
     {{controls.confirm
     onConfirm=onSubmitHandler

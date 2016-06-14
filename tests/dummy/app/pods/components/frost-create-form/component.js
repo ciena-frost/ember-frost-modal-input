@@ -50,6 +50,10 @@ export default Component.extend({
     save () {
       this.get('onConfirm')(this.get('userValue'))
       this.clearForm()
+    },
+
+    myCustomAction () {
+      Logger.log('Custom action triggered')
     }
   }
 })
