@@ -37,23 +37,14 @@ ember install ember-frost-modal-input
 
 ## Examples
 
-### Modal component
-Inject the [remodal](http://sethbrasile.github.io/ember-remodal/) service in your component
-```js
-remodal: inject.service(),
-```
-
 #### Component template using ember-block-slots
 Below is an example of template.hbs
 ```handlebars
 {{#frost-modal-input
-  formView=userView
-  formModel=userModel
-  formValue=userValue
-  onChange=(action 'formValueChanged')
-  onValidation=(action 'onValidation')
-  title='Test title'
-  subtitle='Subtitle'
+  onClose=(action 'clearForm')
+  onSubmitHandler=(action 'save')
+  title='Edit user'
+  subtitle='John Smith'
   modalName=modalName as |slot|}}
   {{#block-slot slot 'target'}}
     {{frost-button
@@ -62,29 +53,18 @@ Below is an example of template.hbs
       size='medium'}}
   {{/block-slot}}
 
-  {{#block-slot slot 'header'}}
-    {{#frost-info-bar as |slot|}}
-      {{#block-slot slot 'title'}}
-        Edit user
-      {{/block-slot}}
-      {{#block-slot slot 'summary'}}
-        John Smith
-      {{/block-slot}}
-    {{/frost-info-bar}}
-  {{/block-slot}}
-
-  {{#block-slot slot 'footer' as |action|}}
-    {{action.button
-      text='Cancel'
-      priority='tertiary'
-      onClick=(action 'cancel')
-    }}
-    {{action.button
-      disabled=(not isValid)
-      text='Save'
-      priority='primary'
-      onClick=(action 'save')
-    }}
+  {{#block-slot slot 'body'}}
+    {{frost-bunsen-form
+      bunsenModel=userModel
+      autofocus=false
+      inline=true
+      onChange=(action 'formValueChanged')
+      onValidation=(action 'onValidation')
+      renderers=renderers
+      showAllErrors=showAllErrors
+      value=formValue
+      validators=validators
+      }}
   {{/block-slot}}
 {{/frost-modal-input}}
 ```
@@ -103,20 +83,6 @@ Below is an example of template.hbs
 {{/frost-modal-input}}
 ```
 
-#### Modal input component
-Below is an excerpt of component.js
-```js
-import layout from './template'
-const {Component, inject} = Ember
-
-export default Component.extend({
-  layout,
-  remodal: inject.service(),
-  closeModal () {
-    this.get('remodal').close(this.get('modalName'))
-  }
-})
-```
 #### Background effects
 ember-remodal provides you with a [remodal-bg](http://sethbrasile.github.io/ember-remodal/#/styling) class that you can apply to your application content, to apply blur effects to the modal overlay.
 ```handlebars

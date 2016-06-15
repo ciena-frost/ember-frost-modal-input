@@ -11,9 +11,10 @@ module.exports = {
   afterInstall: function () {
     return this.addAddonsToProject({
       packages: [
-        {name: 'ember-frost-bunsen', target: '^6.0.3'},
-        {name: 'ember-frost-core', target: '>=0.0.14 <2.0.0'},
+        {name: 'ember-frost-core', target: '>=0.8.0 <2.0.0'},
+        {name: 'ember-frost-modal', target: '^2.0.0'},
         {name: 'ember-block-slots', target: '^0.12.2'},
+        {name: 'ember-prop-types', target: '~2.0.0'},
         {name: 'ember-wormhole', target: '0.3.5'}
       ]
     })
