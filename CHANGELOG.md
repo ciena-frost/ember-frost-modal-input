@@ -1,3 +1,6 @@
+# 5.0.2
+ - Link to forked remodal temporary to force component re-rendering on dialog open/close
+
 # 5.0.1
 No CHANGELOG section found in Pull Request description.
 Use a `# CHANGELOG` section in your Pull Request description to auto-populate the `CHANGELOG.md`
