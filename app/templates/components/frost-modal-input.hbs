@@ -11,16 +11,20 @@
   {{/block-slot}}
 
   {{#block-slot slot 'header'}}
-    {{#if titleComponent}}
-      {{component titleComponent}}
+    {{#yield-slot 'header'}}
+      {{yield}}
     {{else}}
-      <div class="input-header">
-        <div class="primary-title">{{title}}</div>
-        {{#if subtitle}}
-          <div class="sub-title">{{subtitle}}</div>
-        {{/if}}
-      </div>
-    {{/if}}
+      {{#if titleComponent}}
+        {{component titleComponent}}
+      {{else}}
+        <div class="input-header">
+          <div class="primary-title">{{title}}</div>
+          {{#if subtitle}}
+            <div class="sub-title">{{subtitle}}</div>
+          {{/if}}
+        </div>
+      {{/if}}
+    {{/yield-slot}}
   {{/block-slot}}
 
   {{#block-slot slot 'body'}}
