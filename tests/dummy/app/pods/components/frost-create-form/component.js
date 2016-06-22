@@ -49,7 +49,7 @@ export default Component.extend({
 
     save () {
       this.get('onConfirm')(this.get('userValue'))
-      this.clearForm()
+      // this.clearForm()
     },
 
     myCustomAction () {

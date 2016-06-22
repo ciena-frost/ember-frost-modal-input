@@ -11,20 +11,16 @@
   {{/block-slot}}
 
   {{#block-slot slot 'header'}}
-    {{#yield-slot 'header'}}
-      {{yield}}
+    {{#if titleComponent}}
+      {{component titleComponent}}
     {{else}}
-      {{#if titleComponent}}
-        {{component titleComponent}}
-      {{else}}
-        <div class="input-header">
-          <div class="primary-title">{{title}}</div>
-          {{#if subtitle}}
-            <div class="sub-title">{{subtitle}}</div>
-          {{/if}}
-        </div>
-      {{/if}}
-    {{/yield-slot}}
+      <div class="input-header">
+        <div class="primary-title">{{title}}</div>
+        {{#if subtitle}}
+          <div class="sub-title">{{subtitle}}</div>
+        {{/if}}
+      </div>
+    {{/if}}
   {{/block-slot}}
 
   {{#block-slot slot 'body'}}
@@ -43,7 +39,8 @@
       )}}
     {{/yield-slot}}
     {{controls.confirm
-    onConfirm=onSubmitHandler
-    text=confirmBtn}}
+      onConfirm=onSubmitHandler
+      text=confirmBtn
+      disabled=submitDisabled}}
   {{/block-slot}}
 {{/frost-modal}}

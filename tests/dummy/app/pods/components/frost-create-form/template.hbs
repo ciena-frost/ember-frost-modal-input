@@ -4,7 +4,8 @@
   subtitle='Subtitle'
   modalName=modalName
   onClose=(action 'clearForm')
-  onSubmitHandler=(action 'save') as |slot|}}
+  onSubmitHandler=(action 'save')
+  submitDisabled=(not isValid) as |slot|}}
   {{#block-slot slot 'target'}}
     {{frost-button
       text='Open small form'
