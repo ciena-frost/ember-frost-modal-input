@@ -1,10 +1,11 @@
 {{#frost-modal-input
-  confirmBtn='Submit'
+  isValid=isValid
+  formValue=formValue
   title='Test title'
   subtitle='Subtitle'
   modalName=modalName
-  onClose=(action 'clearForm')
-  onSubmitHandler=(action 'save') as |slot|}}
+  onOpen=(action 'open')
+  onClose=(action 'clearForm') as |slot|}}
   {{#block-slot slot 'target'}}
     <div style='margin-top:20px;'>
       {{frost-button
@@ -13,17 +14,18 @@
         size='medium'}}
     </div>
   {{/block-slot}}
-  {{#block-slot slot 'body'}}
-    {{frost-bunsen-form
-      bunsenModel=userModel
+  {{#block-slot slot 'body' as |content|}}
+    {{content.form
       autofocus=false
+      bunsenModel=userModel
       inline=true
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')
-      renderers=renderers
-      showAllErrors=showAllErrors
       value=formValue
-      validators=validators
+      showAllErrors=showAllErrors
       }}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |controls|}}
+    {{controls.confirm
+      onConfirm=(action 'save')
+      text='Submit'}}
   {{/block-slot}}
 {{/frost-modal-input}}

@@ -40,12 +40,12 @@ $form-margin-bottom: 4px;
                 .primary-title {
                   padding-bottom: 3px;
                   color: $frost-color-night-2;
-                  font-size: $frost-font-m;
+                  font-size: $frost-font-l;
                 }
 
                 .sub-title {
                   color: $frost-color-grey-5;
-                  font-size: $frost-font-s;
+                  font-size: $frost-font-m;
                 }
               }
 
@@ -73,6 +73,20 @@ $form-margin-bottom: 4px;
                       height: 70px;
                     }
                   }
+                }
+              }
+
+              .footer {
+                justify-content: space-between;
+
+                .frost-button {
+                  margin-left: 10px;
+                }
+
+                .form-error-count {
+                  margin-left: 20px;
+                  color: $frost-color-danger;
+                  font-size: $frost-font-s;
                 }
               }
             }

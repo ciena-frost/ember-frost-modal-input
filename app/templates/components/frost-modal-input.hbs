@@ -2,8 +2,8 @@
   modalClass='frost-modal-input'
   modalName=modalName
   onOpen=onOpen
-  onClose=onClose
-  confirm=(action 'confirm') as |slot|}}
+  onClose=(action 'onClose')
+  modalClose=modalClose as |slot|}}
   {{#block-slot slot 'target'}}
     {{#yield-slot 'target'}}
       {{yield}}
@@ -25,22 +25,40 @@
 
   {{#block-slot slot 'body'}}
     {{#yield-slot 'body'}}
-      {{yield}}
+      {{yield (block-params
+        (hash form=(
+          component 'frost-bunsen-form'
+          onValidation=(action 'validate')
+          onChange=(action 'formValueChanged')
+          )
+        )
+        formValue
+      )}}
     {{/yield-slot}}
   {{/block-slot}}
 
-  {{#block-slot slot 'footer' as |controls|}}
+  {{#block-slot slot 'footer' as |controls modalClose|}}
+    {{#liquid-if showErrorCount class="form-error-count"}}
+      {{errorLength}} Errors
+    {{/liquid-if}}
+    <div>
     {{controls.cancel}}
     {{#yield-slot 'footer'}}
       {{yield (block-params
         (hash
          button=controls.button
+         confirm=(component
+           'submit-button'
+           text='Submit'
+           priority='primary'
+           size='medium'
+           isValid=isValid
+           saveAttempted=(action 'saveAttempted')
+           close=modalClose
+           )
         )
       )}}
     {{/yield-slot}}
-    {{controls.confirm
-      onConfirm=onSubmitHandler
-      text=confirmBtn
-      disabled=submitDisabled}}
+  </div>
   {{/block-slot}}
 {{/frost-modal}}

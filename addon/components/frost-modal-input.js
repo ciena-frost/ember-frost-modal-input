@@ -1,5 +1,5 @@
 import Ember from 'ember'
-const {Component} = Ember
+const {Component, computed} = Ember
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
 export default Component.extend(PropTypeMixin, {
@@ -15,12 +15,15 @@ export default Component.extend(PropTypeMixin, {
     modalName: PropTypes.string,
     subtitle: PropTypes.string,
     title: PropTypes.string,
-    titleComponent: PropTypes.string
+    formValue: PropTypes.object,
+    isValid: PropTypes.bool
   },
 
   getDefaultProps () {
     return {
-      modalName: ''
+      modalName: 'my-modal-input',
+      isValid: false,
+      attemptedSave: false
     }
   },
 
@@ -28,6 +31,9 @@ export default Component.extend(PropTypeMixin, {
   // Computed Properties
   // ==========================================================================
 
+  showErrorCount: computed('attemptedSave', 'isValid', function () {
+    return this.get('attemptedSave') && !this.get('isValid')
+  }),
   // ==========================================================================
   // Functions
   // ==========================================================================
@@ -41,8 +47,21 @@ export default Component.extend(PropTypeMixin, {
   // ==========================================================================
 
   actions: {
-    confirm () {
-      this.get('onSubmitHandler')()
+    formValueChanged (formState) {
+      this.set('formValue', formState)
+    },
+    onClose () {
+      this.set('attemptedSave', false)
+      if (this.onClose) {
+        this.onClose()
+      }
+    },
+    saveAttempted (attrs) {
+      this.set('attemptedSave', true)
+    },
+    validate (e) {
+      this.set('isValid', e.errors.length === 0)
+      this.set('errorLength', e.errors.length)
     }
   }
 })

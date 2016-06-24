@@ -11,33 +11,36 @@
     <div class="snippet">
       {{format-markdown "```handlebars
 {{#frost-modal-input
-  confirmBtn='Submit'
+  isValid=isValid
+  formValue=formValue
   title='Test title'
   subtitle='Subtitle'
   modalName=modalName
-  onClose=(action 'clearForm')
-  onSubmitHandler=(action 'save')
-  submitDisabled=(not isValid) as |slot|}}
+  onOpen=(action 'open')
+  onClose=(action 'clearForm') as |slot|}}
   {{#block-slot slot 'target'}}
     {{frost-button
       text='Open small form'
       priority='secondary'
       size='medium'}}
   {{/block-slot}}
-  {{#block-slot slot 'body'}}
-    {{frost-bunsen-form
+  {{#block-slot slot 'body' as |content|}}
+    {{content.form
       autofocus=false
       bunsenModel=userModel
       inline=true
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')
-      value=userValue
+      value=formValue
+      showAllErrors=showAllErrors
       }}
   {{/block-slot}}
-  {{#block-slot slot 'footer' as |controls|}}
+  {{#block-slot slot 'footer' as |controls close|}}
     {{controls.button
-    text='Custom action'
-    onClick=(action 'myCustomAction')}}
+      text='Custom action'
+      onClick=(action 'myCustomAction')}}
+    {{controls.confirm
+      onConfirm=(action 'save')
+      text='Submit'
+    }}
   {{/block-slot}}
 {{/frost-modal-input}}
     ```"
