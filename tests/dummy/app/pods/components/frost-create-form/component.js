@@ -3,10 +3,9 @@ import layout from './template'
 const {Component, Logger} = Ember
 
 export default Component.extend({
-
   layout,
   modalName: 'my-awesome-modal',
-  userValue: {},
+  showAllErrors: false,
   userModel: {
     'type': 'object',
     'properties': {
@@ -26,21 +25,13 @@ export default Component.extend({
   },
 
   clearForm () {
-    this.set('userValue', {})
+    this.set('formValue', {})
   },
 
   actions: {
     clearForm () {
       this.clearForm()
-      Logger.log('modal closed')
-    },
-
-    formValueChanged (formState) {
-      this.set('userValue', formState)
-    },
-
-    onValidation (e) {
-      this.set('isValid', e.errors.length === 0)
+      this.set('showAllErrors', false)
     },
 
     open () {
@@ -48,8 +39,12 @@ export default Component.extend({
     },
 
     save () {
-      this.get('onConfirm')(this.get('userValue'))
-      this.clearForm()
+      // this.set('attemptedSave', true)
+      if (this.get('isValid')) {
+        this.get('onConfirm')(this.get('formValue'))
+      } else {
+        this.set('showAllErrors', true)
+      }
     },
 
     myCustomAction () {

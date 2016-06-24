@@ -61,7 +61,7 @@ export default Component.extend({
       }
     },
     'required': [
-      'username', 'password'
+      'firstName'
     ]
   },
 
@@ -75,21 +75,16 @@ export default Component.extend({
       Logger.log('modal closed')
     },
 
-    formValueChanged (formState) {
-      this.set('formValue', formState)
-    },
-
-    onValidation (e) {
-      this.set('isValid', e.errors.length === 0)
-    },
-
     open () {
       Logger.log('modal opened')
     },
 
     save () {
-      this.get('onConfirm')(this.get('formValue'))
-      this.clearForm()
+      if (this.get('isValid')) {
+        this.get('onConfirm')(this.get('formValue'))
+      } else {
+        this.set('showAllErrors', true)
+      }
     }
   }
 })

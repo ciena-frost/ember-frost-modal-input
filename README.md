@@ -30,10 +30,8 @@ ember install ember-frost-modal-input
 | `subtitle` | `string` | |  Optional custom subtitle |
 | `titleComponent` | `string` | | Optional title component to replace standard title/subtitle styles |
 | `modalName` | `string` | | Required name for the modal |
-| `onChange` | `Function` | `<action-name>` | Optional callback for when form values change |
 | `onClose` | `Function` | `<action-name>` | Optional callback for when modal is closed |
 | `onOpen` | `Function` | `<action-name>` | Optional callback for when modal is opened |
-| `onValidation` | `Function` | `<action-name>` | Optional callback for when form is validated |
 
 ## Examples
 
@@ -41,30 +39,33 @@ ember install ember-frost-modal-input
 Below is an example of template.hbs
 ```handlebars
 {{#frost-modal-input
-  onClose=(action 'clearForm')
-  onSubmitHandler=(action 'save')
+  isValid=isValid
+  formValue=formValue
   title='Edit user'
   subtitle='John Smith'
-  modalName=modalName as |slot|}}
+  modalName='my-test-modal'
+  onOpen=(action 'open')
+  onClose=(action 'clearForm') as |slot|}}
   {{#block-slot slot 'target'}}
     {{frost-button
-      text='Open long form with scroll'
+      text='Open small form'
       priority='secondary'
       size='medium'}}
   {{/block-slot}}
-
-  {{#block-slot slot 'body'}}
-    {{frost-bunsen-form
-      bunsenModel=userModel
+  {{#block-slot slot 'body' as |content|}}
+    {{content.form
       autofocus=false
+      bunsenModel=userModel
       inline=true
-      onChange=(action 'formValueChanged')
-      onValidation=(action 'onValidation')
-      renderers=renderers
-      showAllErrors=showAllErrors
       value=formValue
-      validators=validators
+      showAllErrors=showAllErrors
       }}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |controls close|}}
+    {{controls.confirm
+      onConfirm=(action 'save')
+      text='Submit'
+    }}
   {{/block-slot}}
 {{/frost-modal-input}}
 ```

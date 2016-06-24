@@ -67,39 +67,46 @@ describeComponent(
     })
 
     describe('render', function () {
-      let onOpen, onClose
+      let onOpen, onClose, isValid, formValue, showAllErrors
 
       beforeEach(function () {
         onClose = sandbox.spy()
         onOpen = sandbox.spy()
+        showAllErrors = false
+        isValid = false
+        formValue = {}
 
-        this.setProperties({onClose, onOpen, testModel})
+        this.setProperties({onClose, onOpen, isValid, formValue, showAllErrors, testModel})
 
         this.render(hbs`{{#frost-modal-input
-            modalName='my-test-modal'
-            formModel=testModel
-            onClose=onClose
-            onOpen=onOpen
-            title='Test title'
-            subtitle='Subtitle' as |slot|}}
-            {{#block-slot slot 'target'}}
+          onOpen=onOpen
+          onClose=onClose
+          isValid=isValid
+          formValue=formValue
+          title='Test title'
+          subtitle='Subtitle'
+          modalName='my-test-modal' as |slot|}}
+          {{#block-slot slot 'target'}}
               {{frost-button
-                text='Open small form'
+                text='Open long form with scroll'
                 priority='secondary'
                 size='medium'}}
-            {{/block-slot}}
-            {{#block-slot slot 'footer' as |action|}}
-              {{action.button
-                priority='tertiary'
-                text='Cancel'
+          {{/block-slot}}
+          {{#block-slot slot 'body' as |content|}}
+            {{content.form
+              autofocus=false
+              bunsenModel=testModel
+              inline=true
+              value=formValue
+              showAllErrors=showAllErrors
               }}
-              {{action.button
-                disabled=(not isValid)
-                priority='primary'
-                text='Save'
-              }}
-            {{/block-slot}}
-        {{/frost-modal-input}}`)
+          {{/block-slot}}
+          {{#block-slot slot 'footer' as |controls|}}
+            {{controls.confirm
+              text='Submit'}}
+          {{/block-slot}}
+        {{/frost-modal-input}}
+        `)
       })
 
       it('renders target', function () {
@@ -146,45 +153,6 @@ describeComponent(
         it('does not fire onClose property', function () {
           expect(onClose.callCount).to.equal(0)
         })
-      })
-    })
-
-    describe('render disabled', function () {
-      beforeEach(function () {
-        this.setProperties({testModel})
-
-        this.render(hbs`{{#frost-modal-input
-            formDisabled=true
-            formModel=testModel
-            modalName='my-test-modal'
-            subtitle='Subtitle'
-            title='Test title'
-            onClose=onClose
-            onOpen=onOpen
-            as |slot|
-          }}
-            {{#block-slot slot 'target'}}
-              {{frost-button
-                text='Open small form'
-                priority='secondary'
-                size='medium'}}
-            {{/block-slot}}
-            {{#block-slot slot 'footer' as |action|}}
-              {{action.button
-                priority='tertiary'
-                text='Cancel'
-              }}
-              {{action.button
-                disabled=(not isValid)
-                priority='primary'
-                text='Save'
-              }}
-            {{/block-slot}}
-          {{/frost-modal-input}}`)
-      })
-
-      it('renders target', function () {
-        expect(this.$('.frost-button:visible')).to.have.length(1)
       })
     })
   }
