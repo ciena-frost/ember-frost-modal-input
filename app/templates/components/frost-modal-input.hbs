@@ -28,6 +28,7 @@
       {{yield (block-params
         (hash form=(
           component 'frost-bunsen-form'
+          classNames='frost-bunsen-form main-bunsen-form'
           onValidation=(action 'validate')
           onChange=(action 'formValueChanged')
           )
