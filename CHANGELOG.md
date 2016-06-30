@@ -1,3 +1,8 @@
+# 6.0.1
+ * **Added** `PULL_REQUEST_TEMPLATE.md` to ease people into using `pr-bumper`
+ * **Removed** unnecessary nesting in `addon/styles/addon.scsss`
+
+
 # 6.0.0
 * Adding validation trigger on submit button click
 * Shows validation error count
