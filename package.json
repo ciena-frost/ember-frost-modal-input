@@ -3,6 +3,16 @@
   "version": "6.0.1",
   "description": "Modal component to support forms",
   "frostGuideDirectory": "ui-components/input-controls/modal-dialog-input",
+  "frostGuideDemoMetaData": {
+    "ModalName": "frost-create-form",
+    "Modal": {
+      "withParams": "showModalForm",
+      "dialogClass": "frost-bunsen-form-dialog",
+      "actions": {
+        "save": "save"
+      }
+    }
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
