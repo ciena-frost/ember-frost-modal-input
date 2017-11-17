@@ -1,3 +1,5 @@
+# This package is [DEPRECATED] 
+
 [ci-img]: https://img.shields.io/travis/ciena-frost/ember-frost-modal-input.svg "Travis CI Build Status"
 [ci-url]: https://travis-ci.org/ciena-frost/ember-frost-modal-input
 
